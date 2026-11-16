@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Beg Representantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>html,body{margin:0}body{font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<style>
+/* Layout: sistema interno de fábrica — faixa escura com abas por papel, conteúdo em painéis, detalhe do pedido em gaveta lateral */
+:root{
+  --bg:#f3f3f9; --surface:#ffffff; --surface-2:#e9e8f4; --line:#d5d4e8;
+  --ink:#18173b; --muted:#5c5b7a;
+  --band:#1f1b5e; --band-ink:#eeedfb; --band-muted:#a9a6dc;
+  --accent:#4b3fcf; --accent-ink:#ffffff; --accent-soft:#e4e1fa;
+  --warn:#8f5200; --warn-soft:#fbe8cc; --ok:#1c6f36; --ok-soft:#d7efdd;
+  --bad:#a8231b; --bad-soft:#f7dad7; --info:#284f97; --info-soft:#dce6f6;
+  --scrim:rgba(14,12,40,.45);
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#100f1f; --surface:#19182e; --surface-2:#22213d; --line:#33314f;
+  --ink:#e9e8f8; --muted:#a4a2c4;
+  --band:#0b0a1a; --band-ink:#e9e8f8; --band-muted:#8f8cc4;
+  --accent:#9d95ff; --accent-ink:#15123d; --accent-soft:#2b2763;
+  --warn:#f0b35c; --warn-soft:#3a2a12; --ok:#6fd38c; --ok-soft:#163222;
+  --bad:#f08a80; --bad-soft:#3d1a17; --info:#8fb2f0; --info-soft:#18263f;
+  --scrim:rgba(0,0,0,.6); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#100f1f; --surface:#19182e; --surface-2:#22213d; --line:#33314f;
+  --ink:#e9e8f8; --muted:#a4a2c4;
+  --band:#0b0a1a; --band-ink:#e9e8f8; --band-muted:#8f8cc4;
+  --accent:#9d95ff; --accent-ink:#15123d; --accent-soft:#2b2763;
+  --warn:#f0b35c; --warn-soft:#3a2a12; --ok:#6fd38c; --ok-soft:#163222;
+  --bad:#f08a80; --bad-soft:#3d1a17; --info:#8fb2f0; --info-soft:#18263f;
+  --scrim:rgba(0,0,0,.6); color-scheme:dark;}
+
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--band)}
+*{box-sizing:border-box}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:1.45rem} h3{font-size:1.08rem}
+p{margin:0}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+
+/* top band */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--band);color:var(--band-ink)}
+.top .wrap{display:flex;flex-direction:column;gap:8px;padding-block:12px 0}
+.brandrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:10px}
+.brand svg{flex:none}
+.who{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:.88rem;flex-wrap:wrap}
+.role{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:99px;border:1px solid var(--band-muted);color:var(--band-muted)}
+.linkbtn{background:none;border:0;color:var(--band-ink);text-decoration:underline;cursor:pointer;font:inherit;padding:4px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;color:var(--band-muted);font:600 .9rem var(--f-body);padding:10px 14px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.tab[aria-current="page"]{color:var(--band-ink);border-bottom-color:var(--accent)}
+.tab:hover{color:var(--band-ink)}
+
+main{padding-block:24px 48px}
+.stack{display:flex;flex-direction:column;gap:16px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:820px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.kpi b{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* buttons & forms */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:600 .9rem var(--f-body);padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.small{padding:6px 10px;font-size:.82rem}
+.btn:focus-visible,.tab:focus-visible,.chip:focus-visible,.sw:focus-visible,.sizecard:focus-within,input:focus-visible,select:focus-visible,textarea:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:.85rem;font-weight:600;color:var(--muted)}
+input,select,textarea{font:15px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%}
+textarea{min-height:72px;resize:vertical}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+legend{font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:6px;padding:0}
+
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--accent);border-color:transparent}
+.sizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sizecard{position:relative;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;background:var(--surface);text-align:center}
+.sizecard input{position:absolute;opacity:0;pointer-events:none}
+.sizecard:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.sizecard b{font-family:var(--f-display);font-size:1.05rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg label{padding:8px 12px;cursor:pointer;font-size:.88rem;font-weight:500;position:relative}
+.seg input{position:absolute;opacity:0}
+.seg label:has(input:checked){background:var(--accent);color:var(--accent-ink)}
+
+/* summary */
+.sumline{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.sumline:last-child{border-bottom:0}
+.total{font-family:var(--f-mono);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.note{background:var(--surface-2);border-radius:8px;padding:10px 12px;font-size:.88rem}
+.note.warn{background:var(--warn-soft);color:var(--warn)}
+.note.ok{background:var(--ok-soft);color:var(--ok)}
+.note.info{background:var(--info-soft);color:var(--info)}
+.note.bad{background:var(--bad-soft);color:var(--bad)}
+.mock{display:flex;justify-content:center;background:var(--surface-2);border-radius:10px;padding:14px}
+.mock svg{width:100%;max-width:220px;height:auto}
+
+/* chips & pills */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 11px;font:500 .82rem var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip .num{opacity:.7;margin-left:4px}
+.pill{display:inline-block;font-size:.76rem;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap;background:var(--surface-2);color:var(--muted)}
+.pill[data-tone="warn"]{background:var(--warn-soft);color:var(--warn)}
+.pill[data-tone="info"]{background:var(--info-soft);color:var(--info)}
+.pill[data-tone="ok"]{background:var(--ok-soft);color:var(--ok)}
+.pill[data-tone="bad"]{background:var(--bad-soft);color:var(--bad)}
+.pill[data-tone="accent"]{background:var(--accent-soft);color:var(--accent)}
+.tag{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--muted)}
+
+/* order list */
+.olist{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ohead,.row{display:grid;grid-template-columns:70px minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.3fr) 110px 190px;gap:12px;padding:11px 16px;align-items:center}
+.ohead{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--muted);background:var(--surface-2)}
+.row{border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;font:inherit;color:inherit;width:100%}
+.row:hover{background:var(--surface-2)}
+.row .t{text-align:right}
+.ohead .t{text-align:right}
+.cut{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+@media (max-width:760px){
+  .ohead{display:none}
+  .row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}
+  .row>:nth-child(1){grid-column:1/-1}
+  .row>:nth-child(3),.row>:nth-child(4){grid-column:1}
+  .row>:nth-child(5){grid-column:2;grid-row:2}
+  .row>:nth-child(6){grid-column:2;grid-row:3/5;align-self:start}
+  .row>:nth-child(2){grid-column:1;grid-row:2}
+}
+
+/* cards list */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.ccard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.ccard .top2{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.ficha{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:8px;padding:8px}
+.ficha img{width:56px;height:34px;object-fit:contain;border-radius:4px;background:var(--surface)}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{padding:10px 14px;text-align:left;border-top:1px solid var(--line);font-size:.9rem}
+th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-top:0}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:var(--surface-2);min-width:80px}
+.bar i{display:block;height:100%;border-radius:4px;background:var(--accent)}
+table input{padding:6px 8px;font-size:.9rem;font-family:var(--f-mono);max-width:100px}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(580px,100%);background:var(--bg);z-index:41;overflow-y:auto;
+  padding-top:calc(env(safe-area-inset-top,0px) + 18px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 28px);
+  padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:14px;box-shadow:-8px 0 30px rgba(0,0,0,.18)}
+.dhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.step{display:flex;flex-direction:column;gap:6px;font-size:.7rem;color:var(--muted);line-height:1.2}
+.step i{height:5px;border-radius:3px;background:var(--line)}
+.step.done i{background:var(--accent)}
+.step.now i{background:var(--warn)}
+.step.now{color:var(--ink);font-weight:600}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:520px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+.mini{display:flex;gap:2px;margin-top:6px;max-width:160px}
+.mini i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.mini i.d{background:var(--accent)} .mini i.n{background:var(--warn)}
+.stcell{display:flex;flex-direction:column;align-items:flex-start}
+.filters{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.filters label.f{min-width:200px;flex:1;max-width:280px}
+tr.tot td{font-weight:600;background:var(--surface-2)}
+.hist{display:flex;flex-direction:column;gap:8px;font-size:.86rem;border-left:2px solid var(--line);padding-left:12px}
+.hist time{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);display:block}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;font-size:.9rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.copybox{font-size:.86rem;background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:10px;white-space:pre-wrap}
+
+/* login & portal */
+.login{min-height:100%;display:flex;align-items:center;justify-content:center;padding-block:40px}
+.loginbox{width:min(440px,100%);display:flex;flex-direction:column;gap:16px}
+.demo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.demo button{text-align:left;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer;font:inherit;color:inherit}
+.demo button:hover{background:var(--surface-2)}
+.demo small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:.76rem}
+.simbar{background:var(--warn-soft);color:var(--warn);font-size:.86rem}
+.simbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:8px;flex-wrap:wrap}
+.portal{max-width:620px;margin:0 auto}
+.foot{font-size:.8rem;color:var(--muted);padding-block:0 32px}
+
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 20px);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:8px;z-index:60;font-size:.9rem;max-width:calc(100% - 32px)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.drawer{animation:slide .18s ease-out}@keyframes slide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<div id="app"></div>
+<div id="layer"></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+const COLORS = [
+  ["Branco","#f3f3ef"],["Preto","#232323"],["Azul royal","#2b4fb6"],["Azul claro","#7fb5e4"],["Vermelho","#c3302c"],
+  ["Vinho","#741f33"],["Rosa","#e57ab0"],["Pink","#d9248a"],["Lilás","#9a80cf"],["Verde bandeira","#1e8749"],
+  ["Verde limão","#9cc93b"],["Amarelo","#f0c31d"],["Laranja","#ec7c22"],["Bege","#d8c6a2"],["Cinza","#9aa0a5"]
+];
+const colorHex = n => (COLORS.find(c=>c[0]===n)||COLORS[0])[1];
+const FLOW = ["arte","sinal","producao","saldo","envio"];
+const STEP_LABEL = ["Arte","Sinal 50%","Produção","Saldo + frete","Envio"];
+const STATUS = {
+  arte:["Aguardando arte","warn"],
+  sinal:["Aguardando sinal","warn"],
+  producao:["Em produção","accent"],
+  saldo:["Aguardando saldo","warn"],
+  envio:["Pronto para envio","info"],
+  entregue:["Enviado","ok"],
+  cancelado:["Cancelado","bad"]
+};
+const SIZE_INFO = {P:"Logo discreto, no centro", M:"Logo em destaque", G:"Arte na frente inteira"};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const digits = s => String(s||"").replace(/\D/g,"");
+const brl = v => (v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const fmtDate = iso => new Date(iso).toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
+const fmtDT = iso => new Date(iso).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+const now = () => new Date().toISOString();
+const uid = p => p + Math.random().toString(36).slice(2,8);
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,3200);}
+
+
+function priceFor(st,modelId,size,qty,cores){
+  const m = st.settings.models.find(x=>x.id===modelId);
+  const tiers = [...st.settings.tiers].sort((a,b)=>b.min-a.min);
+  const tier = tiers.find(t=>qty>=t.min) || tiers[tiers.length-1];
+  const base = m ? m.prices[size] : 0;
+  const unit = Math.round((base*tier.f + (Number(cores)===2 ? st.settings.twoColorAdd : 0))*100)/100;
+  return {unit, total:Math.round(unit*qty*100)/100, tier, model:m};
+}
+
+/* ---------- conexão com o banco (preencha as duas linhas abaixo) ---------- */
+const SUPABASE_URL = "https://nlmtyvrjpzxpghvcphsn.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sbXR5dnJqcHp4cGdodmNwaHNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NTA4ODUsImV4cCI6MjExMDQyNjg4NX0.-BHmTXRb8jtEPxYHYkScr7SV76FsBMLGhcrE2ZyPvFY";
+const LOGIN_DOMAIN = "acesso.Begsacolas.com.br"; // só para montar o login; nenhum e-mail é enviado
+
+const configured = /^https:\/\/.+/.test(SUPABASE_URL) && SUPABASE_KEY.length > 40;
+const libOk = !!(window.supabase && window.supabase.createClient);
+const sb = configured && libOk ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const emailOf = login => `${login}@${LOGIN_DOMAIN}`;
+const errMsg = e => (e && (e.message || e.error_description || e.msg)) || String(e || "erro desconhecido");
+
+let S = {settings:null, users:[], clients:[], orders:[], fechamentos:{}};
+let snap = {settings:"", users:{}, clients:{}, orders:{}, fech:{}};
+let me = null, tab = null, portal = null, drawer = null, filter = "todos", draft = null, confirmKey = null, justCreated = null, cliDraft = null;
+let boot = "loading", loginMsg = "", portalData = null, portalErr = "", busy = false;
+
+function rowToUser(r){ return {id:r.id, login:r.login, nome:r.nome, role:r.role, regiao:r.regiao||"", ativo:r.ativo}; }
+function rowToClient(r){ return Object.assign({ficha:null}, r.data||{}, {id:r.id, codigo:r.codigo, nome:r.nome, doc:r.doc, whats:r.whats, cidade:r.cidade, repId:r.rep_id, criadoEm:r.criado_em}); }
+function clientToRow(c){ const data = Object.assign({}, c); ["id","codigo","nome","doc","whats","cidade","repId","criadoEm","criadoPor"].forEach(k=>delete data[k]);
+  return {nome:c.nome, doc:c.doc, whats:c.whats, cidade:c.cidade||"", rep_id:c.repId||null, data}; }
+function rowToOrder(r){ return Object.assign({hist:[], pagamentos:[]}, r.data||{}, {id:r.id, num:r.num, clientId:r.client_id, repId:r.rep_id, origem:r.origem, status:r.status, total:Number(r.total), compet:r.compet, comissaoPaga:r.comissao_paga, token:r.portal_token, criadoEm:r.criado_em}); }
+function orderToRow(o){ const data = Object.assign({}, o); ["id","num","clientId","repId","origem","status","total","compet","comissaoPaga","token","criadoEm","criadoPor"].forEach(k=>delete data[k]);
+  return {client_id:o.clientId, rep_id:o.repId||null, origem:o.origem, status:o.status, total:o.total, compet:o.compet, comissao_paga:!!o.comissaoPaga, data}; }
+const mapJ = arr => Object.fromEntries(arr.map(x=>[x.id, JSON.stringify(x)]));
+function makeSnap(){ return {settings:JSON.stringify(S.settings), users:mapJ(S.users), clients:mapJ(S.clients), orders:mapJ(S.orders),
+  fech:Object.fromEntries(Object.entries(S.fechamentos).map(([k,v])=>[k, JSON.stringify(v)]))}; }
+
+async function loadAll(){
+  const [st, us, cl, or, fe] = await Promise.all([
+    sb.from("settings").select("data").eq("id",1).single(),
+    sb.from("profiles").select("*").order("nome"),
+    sb.from("clients").select("*"),
+    sb.from("orders").select("*").order("num"),
+    sb.from("fechamentos").select("*")]);
+  const bad = [st,us,cl,or,fe].find(r=>r.error); if (bad) throw bad.error;
+  S.settings = st.data.data;
+  S.users = us.data.map(rowToUser);
+  S.clients = cl.data.map(rowToClient);
+  S.orders = or.data.map(rowToOrder);
+  S.fechamentos = Object.fromEntries(fe.data.map(r=>[r.mes, {fechadoEm:r.fechado_em, pagoEm:r.pago_em, por:r.por}]));
+  if (me) me = S.users.find(u=>u.id===me.id) || me;
+  snap = makeSnap();
+}
+
+let queue = Promise.resolve(), saveFailed = false;
+function save(){
+  queue = queue.then(persist).catch(async e=>{
+    console.error(e); toast("Não foi possível salvar: " + errMsg(e) + ". Os dados foram recarregados.");
+    try { await loadAll(); } catch(_) {} render();
+  });
+  return queue;
+}
+async function persist(){
+  if (!me) return;
+  const next = makeSnap(), jobs = [];
+  const need = (q, what) => jobs.push(q.select("id").then(r=>{ if (r.error) throw r.error; if (!r.data || !r.data.length) throw new Error("sem permissão para alterar " + what); }));
+  if (me.role==="empresa" && next.settings!==snap.settings) need(sb.from("settings").update({data:S.settings}).eq("id",1), "a configuração");
+  if (me.role==="empresa") S.users.forEach(u=>{ if (snap.users[u.id] && snap.users[u.id]!==next.users[u.id]) need(sb.from("profiles").update({nome:u.nome, regiao:u.regiao, ativo:u.ativo}).eq("id",u.id), "o acesso"); });
+  S.clients.forEach(c=>{ if (snap.clients[c.id] && snap.clients[c.id]!==next.clients[c.id]) need(sb.from("clients").update(clientToRow(c)).eq("id",c.id), "o cliente"); });
+  S.orders.forEach(o=>{ if (snap.orders[o.id] && snap.orders[o.id]!==next.orders[o.id]) need(sb.from("orders").update(orderToRow(o)).eq("id",o.id), "o pedido"); });
+  Object.entries(S.fechamentos).forEach(([mes,f])=>{ if (snap.fech[mes]!==next.fech[mes]) need(sb.from("fechamentos").upsert({mes, fechado_em:f.fechadoEm, pago_em:f.pagoEm}), "o fechamento"); });
+  if (!jobs.length) return;
+  await Promise.all(jobs);
+  snap = next;
+}
+async function refresh(){
+  if (!me) return;
+  try { await queue; await loadAll(); } catch(e){ console.error(e); return; }
+  const formTabs = ["novo","cadcliente","config","usuarios","senha"];
+  if (!formTabs.includes(tab) && !document.querySelector(".drawer input:focus, .drawer textarea:focus, .drawer select:focus")) render();
+}
+setInterval(()=>{ if (me && document.visibilityState==="visible") refresh(); }, 45000);
+
+async function afterAuth(){
+  const { data:{ user:u } } = await sb.auth.getUser();
+  if (!u) { me = null; return; }
+  const { data:prof, error } = await sb.from("profiles").select("*").eq("id", u.id).maybeSingle();
+  if (error) throw error;
+  if (!prof) { await sb.auth.signOut(); throw new Error("Este login ainda não foi liberado pela fábrica."); }
+  if (!prof.ativo) { await sb.auth.signOut(); throw new Error("Este acesso está bloqueado. Fale com a fábrica."); }
+  me = rowToUser(prof); tab = null; filter = "todos";
+  await loadAll();
+}
+async function loadPortal(token){
+  const { data, error } = await sb.rpc("portal_get", { p_token: token });
+  if (error || !data) { portalErr = "Este link de pedido não foi encontrado. Confira com o seu representante."; portalData = null; return; }
+  portalErr = ""; portalData = data;
+  S.settings = { models: data.models || [], freteGratisMin: Number(data.freteGratisMin)||0 };
+}
+async function start(){
+  if (!sb) { boot = libOk ? "config" : "nolib"; render(); return; }
+  const h = location.hash || "";
+  if (h.indexOf("#p-")===0) { portal = h.slice(3); await loadPortal(portal); boot = "ready"; render(); return; }
+  try {
+    const { data:{ session } } = await sb.auth.getSession();
+    if (session) await afterAuth();
+    else { const { data } = await sb.rpc("has_admin"); if (data===false) boot = "setup"; }
+  } catch(e) { loginMsg = errMsg(e); me = null; }
+  if (boot==="loading") boot = "ready";
+  render();
+}
+
+const user = id => S.users.find(u=>u.id===id);
+const client = id => S.clients.find(c=>c.id===id);
+const order = id => S.orders.find(o=>o.id===id);
+const model = id => S.settings.models.find(m=>m.id===id);
+const repName = id => id ? (user(id)?.nome || "—") : "Direto (sem representante)";
+const visOrders = () => (me.role==="rep" ? S.orders.filter(o=>o.repId===me.id) : S.orders).slice().sort((a,b)=>b.num-a.num);
+const visClients = () => me.role==="rep" ? S.clients.filter(c=>c.repId===me.id) : S.clients;
+const showCom = () => me && (me.role!=="rep" || S.settings.repVeComissao);
+function com(o){
+  if (o.status==="cancelado" || !o.repId) return {rep:0,gestor:0,state:null};
+  return {rep:o.total*o.repPct/100, gestor:o.total*o.gestorPct/100, state:o.comissaoPaga?"paga":"a receber"};
+}
+const COM_TONE = {"a receber":"accent","paga":"ok"};
+const recebido = o => (o.pagamentos||[]).filter(x=>x.tipo!=="Frete").reduce((a,x)=>a+x.valor,0);
+const freteGratis = o => S.settings.freteGratisMin>0 && o.total >= S.settings.freteGratisMin;
+const freteTxt = o => freteGratis(o) ? "Grátis" : (o.frete!=null ? brl(o.frete) : "A informar no saldo");
+function log(o,txt){ o.hist.push({t:now(),txt}); }
+function pill(status){ const [l,t]=STATUS[status]; return `<span class="pill" data-tone="${t}">${l}</span>`; }
+
+/* ---------- bag mockup ---------- */
+function lum(hex){const n=parseInt(hex.slice(1),16);const r=n>>16,g=n>>8&255,b=n&255;return (0.299*r+0.587*g+0.114*b)/255;}
+function bagSVG(modelId,colorName,size,logoUrl,label){
+  const m = model(modelId) || {kind:"ecobag"};
+  const fill = colorHex(colorName), dark = lum(fill)<0.55, stroke = dark ? "rgba(255,255,255,.28)" : "rgba(0,0,0,.25)";
+  const w = {P:52,M:88,G:132}[size]||88, h = w*0.62, cx=100, cy=140;
+  let top = "";
+  if (m.kind==="ecobag"||m.kind==="presente") top = `<path d="M62 62 C62 18 92 18 92 62 M108 62 C108 18 138 18 138 62" fill="none" stroke="${fill}" stroke-width="${m.kind==="presente"?5:9}" stroke-linecap="round"/><path d="M62 62 C62 18 92 18 92 62 M108 62 C108 18 138 18 138 62" fill="none" stroke="${stroke}" stroke-width="1"/>`;
+  if (m.kind==="sacochila") top = `<path d="M28 66 L100 52 L172 66" fill="none" stroke="${stroke}" stroke-width="2"/><path d="M30 64 Q16 150 30 218 M170 64 Q184 150 170 218" fill="none" stroke="#e8e2d6" stroke-width="3"/>`;
+  let body = `<rect x="26" y="60" width="148" height="160" rx="5" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>`;
+  if (m.kind==="vazada") body = `<path d="M26 40 h148 v180 a5 5 0 0 1 -5 5 h-138 a5 5 0 0 1 -5 -5z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/><rect x="78" y="54" width="44" height="14" rx="7" style="fill:var(--surface-2)" stroke="${stroke}"/>`;
+  if (m.kind==="visor") body += `<rect x="40" y="190" width="120" height="20" rx="3" fill="rgba(255,255,255,.45)" stroke="${stroke}"/>`;
+  const art = logoUrl
+    ? `<image href="${logoUrl}" x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`
+    : `<rect x="${cx-w/2}" y="${cy-h/2}" width="${w}" height="${h}" rx="4" fill="none" stroke="${dark?"#ffffff":"#111111"}" stroke-dasharray="4 3" opacity=".6"/><text x="${cx}" y="${cy+4}" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="${size==="P"?8:11}" fill="${dark?"#ffffff":"#111111"}" opacity=".75">SUA LOGO</text>`;
+  return `<svg viewBox="0 0 200 236" role="img" aria-label="${esc(label||"Simulação da sacola")}"><ellipse cx="100" cy="228" rx="78" ry="5" fill="rgba(0,0,0,.12)"/>${top}${body}${art}</svg>`;
+}
+function miniBag(size){
+  const w={P:10,M:16,G:24}[size];
+  return `<svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><path d="M14 14 C14 6 20 6 20 14 M24 14 C24 6 30 6 30 14" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="14" width="28" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="${22-w/2}" y="${27-w*0.31}" width="${w}" height="${w*0.62}" rx="1" fill="currentColor" opacity=".55"/></svg>`;
+}
+
+/* ---------- render root ---------- */
+function render(){
+  const app = $("#app");
+  if (portal) { app.innerHTML = viewPortal(); renderLayer(); return; }
+  if (boot!=="ready" && boot!=="setup") { app.innerHTML = viewBoot(); return; }
+  if (!me) { app.innerHTML = viewLogin(); renderLayer(); return; }
+  const tabs = TABS[me.role];
+  const extra = me.role==="gestor" ? ["senha"] : ["cadcliente","senha"];
+  if (!tab || !(tabs.find(t=>t[0]===tab) || extra.includes(tab))) tab = tabs[0][0];
+  const navTab = tab==="cadcliente" ? "clientes" : tab;
+  const roleLabel = {empresa:"Empresa",gestor:"Gestor",rep:"Representante"}[me.role];
+  app.innerHTML = `
+  <header class="top"><div class="wrap">
+    <div class="brandrow">
+      <div class="brand">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+      <div class="who"><span class="role">${roleLabel}</span><span>${esc(me.nome)}</span><button class="linkbtn" data-act="tab" data-v="senha">Trocar senha</button><button class="linkbtn" data-act="logout">Sair</button></div>
+    </div>
+    <nav class="tabs" aria-label="Seções">${tabs.map(t=>`<button class="tab" data-act="tab" data-v="${t[0]}" ${t[0]===navTab?'aria-current="page"':""}>${t[1]}</button>`).join("")}</nav>
+  </div></header>
+  <main class="wrap">${VIEWS[tab]()}</main>
+`;
+  if (tab==="novo") updateSummary();
+  renderLayer();
+}
+function brandMark(){return `<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M7 8 C7 2 12 2 12 8 M14 8 C14 2 19 2 19 8" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="8" width="20" height="16" rx="2" fill="var(--accent)"/></svg>`;}
+
+const TABS = {
+  rep:[["novo","Novo pedido"],["pedidos","Meus pedidos"],["clientes","Meus clientes"],["comissao","Minhas vendas"]],
+  empresa:[["painel","Painel"],["recebimentos","Recebimentos"],["pedidos","Pedidos"],["novo","Pedido direto"],["clientes","Clientes"],["fechamento","Fechamento"],["usuarios","Acessos"],["config","Preços e comissões"]],
+  gestor:[["geral","Visão geral"],["fechamento","Fechamento"],["pedidos","Pedidos"],["clientes","Clientes"]]
+};
+
+/* ---------- login ---------- */
+function viewBoot(){
+  const box = inner => `<div class="wrap login"><div class="loginbox"><div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>${inner}</div></div>`;
+  if (boot==="loading") return box(`<p class="muted">Carregando…</p>`);
+  if (boot==="nolib") return box(`<p class="note bad">Não foi possível carregar o sistema. Confira a internet e recarregue a página.</p>`);
+  return box(`<div class="panel stack"><h3>Falta ligar ao banco de dados</h3><p class="muted">Abra o arquivo index.html e preencha SUPABASE_URL e SUPABASE_KEY com os dados do seu projeto no Supabase (Project Settings → API).</p></div>`);
+}
+function viewLogin(){
+  if (boot==="setup") return `<div class="wrap login"><div class="loginbox">
+    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+    <p class="muted">Primeiro acesso: crie o login da fábrica. Ele é o administrador e cria os acessos do gestor e dos representantes.</p>
+    <form class="panel stack" id="setupForm">
+      <label class="f" for="sNome">Nome da empresa<input id="sNome" value="Beg Sacolas" required></label>
+      <label class="f" for="sLogin">Usuário<input id="sLogin" value="fabrica" autocomplete="username" required></label>
+      <label class="f" for="sPw">Senha (mínimo 8 caracteres)<input id="sPw" type="password" autocomplete="new-password" required></label>
+      <label class="f" for="sPw2">Repita a senha<input id="sPw2" type="password" autocomplete="new-password" required></label>
+      <p id="setupErr" class="note bad" hidden></p>
+      <button class="btn primary" type="submit">Criar acesso da fábrica</button>
+    </form>
+  </div></div>`;
+  return `<div class="wrap login"><div class="loginbox">
+    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+    <p class="muted">Entre com o usuário e a senha criados pela fábrica.</p>
+    <form class="panel stack" id="loginForm">
+      <label class="f" for="lg">Usuário<input id="lg" autocomplete="username" autocapitalize="none" required></label>
+      <label class="f" for="pw">Senha<input id="pw" type="password" autocomplete="current-password" required></label>
+      <p id="loginErr" class="note bad" ${loginMsg?"":"hidden"}>${esc(loginMsg)}</p>
+      <button class="btn primary" type="submit">Entrar</button>
+    </form>
+  </div></div>`;
+}
+function viewSenha(){
+  return `<form id="pwForm" class="stack" style="max-width:460px">
+    <div class="head"><div><p class="eyebrow">${esc(me.login)}</p><h2>Trocar senha</h2></div></div>
+    <section class="panel stack">
+      <label class="f" for="nPw">Nova senha (mínimo 8 caracteres)<input id="nPw" type="password" autocomplete="new-password" required></label>
+      <label class="f" for="nPw2">Repita a nova senha<input id="nPw2" type="password" autocomplete="new-password" required></label>
+      <p id="pwErr" class="note bad" hidden></p>
+      <div><button class="btn primary" type="submit">Salvar nova senha</button></div>
+    </section></form>`;
+}
+
+/* ---------- order list ---------- */
+function orderList(list, opts={}){
+  const showRep = me.role!=="rep";
+  if (!list.length) return `<div class="olist"><div class="empty">${opts.empty||"Nenhum pedido aqui ainda."}</div></div>`;
+  return `<div class="olist" role="list">
+    <div class="ohead"><span>Nº</span><span>Cliente</span><span>${showRep?"Representante":"Data"}</span><span>Sacola</span><span class="t">Total</span><span>Situação</span></div>
+    ${list.map(o=>{const c=client(o.clientId), m=model(o.modelId);
+      return `<button class="row" role="listitem" data-act="open" data-id="${o.id}">
+        <span class="mono">#${o.num} ${o.origem==="direto"?'<span class="tag">direto</span>':""}</span>
+        <span class="cut"><b>${esc(c?.nome)}</b></span>
+        <span class="cut muted small">${showRep?esc(repName(o.repId)):fmtDate(o.criadoEm)}</span>
+        <span class="cut small">${esc(m?.name)} · ${o.size} · ${o.qty.toLocaleString("pt-BR")} un</span>
+        <span class="t num">${brl(o.total)}</span>
+        <span class="stcell">${pill(o.status)}${miniSteps(o)}</span>
+      </button>`;}).join("")}
+  </div>`;
+}
+
+function viewPedidos(){
+  const all = visOrders();
+  const counts = {todos:all.length};
+  Object.keys(STATUS).forEach(k=>counts[k]=all.filter(o=>o.status===k).length);
+  const list = filter==="todos" ? all : all.filter(o=>o.status===filter);
+  const title = me.role==="rep" ? "Meus pedidos" : "Pedidos de todos os representantes";
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">${me.role==="rep"?"Só os seus":"Visão completa"}</p><h2>${title}</h2></div>
+      ${me.role!=="gestor"?`<button class="btn primary" data-act="tab" data-v="novo">${me.role==="rep"?"Novo pedido":"Lançar pedido direto"}</button>`:""}</div>
+    <div class="chips" role="group" aria-label="Filtrar por situação">
+      <button class="chip" data-act="filter" data-v="todos" aria-pressed="${filter==="todos"}">Todos<span class="num">${counts.todos}</span></button>
+      ${Object.keys(STATUS).filter(k=>counts[k]).map(k=>`<button class="chip" data-act="filter" data-v="${k}" aria-pressed="${filter===k}">${STATUS[k][0]}<span class="num">${counts[k]}</span></button>`).join("")}
+    </div>
+    ${orderList(list)}
+  </div>`;
+}
+
+/* ---------- new order ---------- */
+function freshDraft(){
+  const cl = visClients();
+  return {clientId: cl[0]?.id || "", modelId:"eb30", color:"Azul royal", size:"M", cores:1, qty:500};
+}
+function viewNovo(){
+  const isEmp = me.role==="empresa";
+  const cl = visClients().slice().sort((a,b)=>a.nome.localeCompare(b.nome));
+  if (!cl.length) return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">Primeiro passo</p><h2>${isEmp?"Lançar pedido direto":"Novo pedido"}</h2></div></div>
+    <div class="panel stack" style="align-items:flex-start"><h3>Cadastre um cliente antes</h3>
+      <p class="muted">O pedido sempre é feito para um cliente já cadastrado${isEmp?"":" na sua carteira"}. Depois do cadastro, o sistema pergunta se você quer digitar o pedido.</p>
+      <button class="btn primary" data-act="newclient">Cadastrar cliente</button></div></div>`;
+  if (!draft || !cl.find(c=>c.id===draft.clientId)) { const keep = draft; draft = freshDraft(); if (keep && keep.clientId && cl.find(c=>c.id===keep.clientId)) draft.clientId = keep.clientId; else draft.clientId = cl[0].id; }
+  const d = draft;
+  return `<form id="orderForm" class="stack" novalidate>
+    <div class="head"><div><p class="eyebrow">${isEmp?"Pedido fechado pela fábrica":"Você fecha, a fábrica cuida da arte"}</p><h2>${isEmp?"Lançar pedido direto":"Novo pedido"}</h2></div></div>
+    <div class="grid2">
+      <div class="stack">
+        <section class="panel stack">
+          <div class="head"><h3>Cliente</h3><button type="button" class="btn small" data-act="newclient">Cadastrar outro cliente</button></div>
+          <label class="f" for="fClient">Para quem é o pedido
+            <select id="fClient" name="clientId">
+              ${cl.map(c=>`<option value="${c.id}" ${c.id===d.clientId?"selected":""}>${esc(c.nome)} · ${esc(c.cidade)}${isEmp?" — "+esc(repName(c.repId)):""}</option>`).join("")}
+            </select></label>
+          <p id="clientNote" class="note" hidden></p>
+        </section>
+        <section class="panel stack">
+          <h3>Sacola</h3>
+          <label class="f" for="fModel">Modelo
+            <select id="fModel" name="modelId">${S.settings.models.map(m=>`<option value="${m.id}" ${m.id===d.modelId?"selected":""}>${esc(m.name)} — mínimo ${m.min} un</option>`).join("")}</select></label>
+          <fieldset><legend>Cor do TNT: <span id="colorName" style="color:var(--ink)">${esc(d.color)}</span></legend>
+            <div class="swatches">${COLORS.map(([n,h])=>`<button type="button" class="sw" style="background:${h}" data-act="color" data-v="${esc(n)}" aria-label="${esc(n)}" aria-pressed="${n===d.color}"></button>`).join("")}</div>
+          </fieldset>
+          <fieldset><legend>Tamanho da arte</legend>
+            <div class="sizes">${["P","M","G"].map(s=>`<label class="sizecard"><input type="radio" name="size" value="${s}" ${s===d.size?"checked":""}>${miniBag(s)}<b>${s}</b><span class="small muted">${SIZE_INFO[s]}</span></label>`).join("")}</div>
+          </fieldset>
+          <div class="fgrid">
+            <fieldset><legend>Cores da impressão</legend>
+              <div class="seg"><label><input type="radio" name="cores" value="1" ${d.cores==1?"checked":""}>1 cor</label><label><input type="radio" name="cores" value="2" ${d.cores==2?"checked":""}>2 cores</label></div>
+            </fieldset>
+            <label class="f" for="fQty">Quantidade<input id="fQty" name="qty" type="number" inputmode="numeric" min="1" step="50" value="${d.qty}"></label>
+          </div>
+        </section>
+      </div>
+      <aside class="stack" style="position:sticky;top:calc(env(safe-area-inset-top,0px) + 110px)">
+        <section class="panel stack">
+          <h3>Resumo</h3>
+          <div class="mock" id="mock"></div>
+          <div id="summary"></div>
+          <p id="formErr" class="note bad" hidden></p>
+          <button class="btn primary" type="submit">${isEmp?"Lançar pedido":"Enviar pedido à fábrica"}</button>
+          <p class="small muted">O cliente recebe o link do pedido para mandar o logo. ${isEmp?"":"Você não precisa cuidar da arte."}</p>
+        </section>
+      </aside>
+    </div>
+  </form>`;
+}
+function readDraft(){
+  const f = $("#orderForm"); if (!f) return;
+  draft.clientId = f.clientId.value;
+  draft.modelId = f.modelId.value;
+  draft.size = f.querySelector("input[name=size]:checked")?.value || "M";
+  draft.cores = Number(f.querySelector("input[name=cores]:checked")?.value || 1);
+  draft.qty = Math.max(0, parseInt(f.qty.value,10) || 0);
+}
+function updateSummary(){
+  if (!$("#orderForm") || !draft) return;
+  readDraft();
+  const d = draft, m = model(d.modelId);
+  const c = client(d.clientId);
+  const repId = c ? c.repId : null;
+  const ficha = c?.ficha;
+  const reuse = ficha && ficha.modelId===d.modelId && ficha.size===d.size;
+  $("#mock").innerHTML = bagSVG(d.modelId,d.color,d.size,ficha?.logo,"Prévia da sacola");
+  const p = priceFor(S,d.modelId,d.size,d.qty,d.cores);
+  const repPct = S.settings.repPct, gPct = S.settings.gestorPct;
+  const below = d.qty < m.min;
+  const tiers = [...S.settings.tiers].sort((a,b)=>a.min-b.min);
+  const next = tiers.find(t=>t.min>d.qty);
+  let comLine = "";
+  if (repId){
+    if (me.role==="rep" && showCom()) comLine = `<div class="sumline"><span>Sua comissão (${repPct}%)</span><b class="num">${brl(p.total*repPct/100)}</b></div>`;
+    else comLine = `<div class="sumline"><span>Comissão de ${esc(repName(repId))} (${repPct}%)</span><b class="num">${brl(p.total*repPct/100)}</b></div><div class="sumline"><span>Gestor da equipe (${gPct}%)</span><b class="num">${brl(p.total*gPct/100)}</b></div>`;
+  }
+  $("#summary").innerHTML = `
+    <div class="sumline"><span>${esc(m.name)} · arte ${d.size} · ${d.cores} cor${d.cores>1?"es":""}</span></div>
+    <div class="sumline"><span>Preço por unidade</span><b class="num">${brl(p.unit)}</b></div>
+    <div class="sumline"><span>Faixa de quantidade</span><span class="small">${p.tier.f<1?`${p.tier.min}+ un (−${Math.round((1-p.tier.f)*100)}%)`:"Preço cheio"}</span></div>
+    <div class="sumline" style="align-items:baseline"><span>Total do pedido</span><span class="total">${brl(p.total)}</span></div>
+    <div class="sumline"><span>Frete</span><span class="small">${S.settings.freteGratisMin>0&&p.total>=S.settings.freteGratisMin?"Grátis":`Cobrado no saldo (grátis a partir de ${brl(S.settings.freteGratisMin)})`}</span></div>
+    ${comLine}
+    ${next&&!below?`<p class="small muted" style="margin-top:6px">A partir de ${next.min} un o preço cai ${Math.round((1-next.f)*100)}%.</p>`:""}`;
+  const note = $("#clientNote");
+  let msg = "", tone = "";
+  if (below){ msg = `Este modelo tem pedido mínimo de ${m.min} unidades.`; tone="warn"; }
+  else if (reuse){ msg = "Arte já aprovada na ficha deste cliente (mesmo modelo e tamanho). O pedido pula a etapa de arte e vai direto para o sinal."; tone="ok"; }
+  else if (ficha){ msg = "O cliente já tem logo na ficha. Como o modelo ou o tamanho mudou, a fábrica confirma a arte com ele pelo WhatsApp."; tone="info"; }
+  if (me.role==="empresa" && c && c.repId){ msg += (msg?" ":"") + `Cliente da carteira de ${repName(c.repId)}: a comissão vai para ele mesmo sendo pedido direto.`; tone = tone||"info"; }
+  note.hidden = !msg; note.className = "note " + tone; note.textContent = msg;
+  const cn = $("#colorName"); if (cn) cn.textContent = d.color;
+}
+async function submitOrder(){
+  if (busy) return;
+  readDraft();
+  const d = draft, m = model(d.modelId), err = $("#formErr");
+  const fail = t => { err.hidden=false; err.textContent=t; };
+  err.hidden = true;
+  const c = client(d.clientId);
+  if (!c) return fail("Escolha o cliente do pedido.");
+  if (d.qty < m.min) return fail(`Este modelo tem pedido mínimo de ${m.min} unidades.`);
+  const p = priceFor(S,d.modelId,d.size,d.qty,d.cores);
+  const reuse = c.ficha && c.ficha.modelId===d.modelId && c.ficha.size===d.size;
+  const o = {clientId:c.id,repId:c.repId,origem:me.role==="rep"?"rep":"direto",criadoPor:me.id,
+    modelId:d.modelId,color:d.color,size:d.size,cores:d.cores,qty:d.qty,unit:p.unit,total:p.total,
+    repPct:S.settings.repPct,gestorPct:S.settings.gestorPct,
+    status: reuse ? "sinal" : "arte", compet: competFor(now()), pagamentos:[],
+    logo: c.ficha ? c.ficha.logo : null, logoNota:"", comissaoPaga:false,
+    hist:[{t:now(),txt:me.role==="rep"?`Pedido enviado por ${me.nome}`:"Pedido lançado direto pela fábrica"}]};
+  if (reuse) o.hist.push({t:now(),txt:"Arte reaproveitada da ficha do cliente (mesmo modelo e tamanho)"});
+  else if (c.ficha) o.hist.push({t:now(),txt:"Logo da ficha reaproveitado; fábrica confirma a arte com o cliente"});
+  busy = true; const btn = document.querySelector("#orderForm [type=submit]"); if (btn) { btn.disabled = true; btn.textContent = "Enviando…"; }
+  try {
+    await queue;
+    const { data, error } = await sb.from("orders").insert(orderToRow(o)).select().single();
+    if (error) throw error;
+    const saved = rowToOrder(data);
+    S.orders.push(saved); snap.orders[saved.id] = JSON.stringify(saved);
+    draft = null; tab = "pedidos"; filter = "todos"; drawer = saved.id;
+    toast(`Pedido #${saved.num} enviado à fábrica`);
+    render();
+  } catch(e) { fail("Não foi possível enviar o pedido: " + errMsg(e)); if (btn) { btn.disabled = false; btn.textContent = me.role==="empresa"?"Lançar pedido":"Enviar pedido à fábrica"; } }
+  finally { busy = false; }
+}
+
+/* ---------- clients ---------- */
+function viewClientes(){
+  const cl = visClients().slice().sort((a,b)=>a.nome.localeCompare(b.nome));
+  const reps = S.users.filter(u=>u.role==="rep");
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">${me.role==="rep"?"Sua carteira":"Carteiras de todos"}</p><h2>${me.role==="rep"?"Meus clientes":"Clientes"}</h2></div>
+    ${me.role!=="gestor"?`<button class="btn" data-act="newclient">Cadastrar cliente</button>`:""}</div>
+    <p class="note">Cliente cadastrado fica na carteira do representante. Todo pedido desse cliente gera comissão para ele, inclusive os fechados direto com a fábrica.</p>
+    ${cl.length?`<div class="cards">${cl.map(c=>{
+      const os = S.orders.filter(o=>o.clientId===c.id && o.status!=="cancelado");
+      const f = c.ficha, fm = f && model(f.modelId);
+      return `<article class="ccard">
+        <div class="top2"><div><h3>${esc(c.nome)}</h3><p class="small muted"><span class="mono">${esc(c.codigo)}</span> · ${esc(c.cidade)}${c.segmento?" · "+esc(c.segmento):""}</p>${c.responsavel?`<p class="small">${esc(c.responsavel)} · <span class="mono">${esc(c.whats)}</span></p>`:""}</div>
+          <span class="small num muted">${os.length} pedido${os.length===1?"":"s"}</span></div>
+        ${me.role!=="rep"?(me.role==="empresa"?`<label class="f" for="rep-${c.id}">Carteira<select id="rep-${c.id}" data-act="assign" data-id="${c.id}"><option value="">Direto (sem representante)</option>${reps.map(r=>`<option value="${r.id}" ${c.repId===r.id?"selected":""}>${esc(r.nome)}</option>`).join("")}</select></label>`:`<p class="small">Carteira: <b>${esc(repName(c.repId))}</b></p>`):""}
+        ${f?`<div class="ficha"><img src="${f.logo}" alt="Logo de ${esc(c.nome)}"><div class="small"><b>Arte aprovada</b><br>${esc(fm?.name)} · ${f.size} · ${esc(f.color)}</div></div>`:`<p class="small muted">Ainda sem arte aprovada.</p>`}
+        <div class="btnrow">
+          ${me.role!=="gestor"&&os.length?`<button class="btn small primary" data-act="repeat" data-id="${c.id}">Repetir último pedido</button>`:""}
+          ${me.role!=="gestor"?`<button class="btn small" data-act="neworderfor" data-id="${c.id}">Novo pedido</button>`:""}
+        </div>
+      </article>`;}).join("")}</div>`:`<div class="panel empty">Nenhum cliente cadastrado ainda.${me.role!=="gestor"?" Use Cadastrar cliente para começar.":""}</div>`}
+  </div>`;
+}
+
+/* ---------- client registration ---------- */
+const SEGMENTOS = ["Loja de roupas","Calçados","Acessórios e bijuterias","Farmácia e cosméticos","Pet shop","Mercado e padaria","Restaurante e delivery","Academia","Igreja","Escola","Eventos e festas","Brinde para empresa","Outro"];
+const UFS = "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(" ");
+function viewCadCliente(){
+  const isEmp = me.role==="empresa";
+  if (justCreated){
+    const c = client(justCreated);
+    return `<div class="stack" style="max-width:640px">
+      <div><p class="eyebrow">Cliente cadastrado</p><h2>${esc(c.nome)}</h2></div>
+      <div class="panel stack">
+        <p class="note ok">Código <span class="mono">${esc(c.codigo)}</span> · carteira de ${esc(repName(c.repId))}. A partir de agora, todo pedido deste cliente gera comissão para ${c.repId?"essa carteira":"ninguém (cliente direto)"}.</p>
+        <h3>Deseja digitar um pedido para ele agora?</h3>
+        <div class="btnrow">
+          <button class="btn primary" data-act="orderfornew">Sim, fazer pedido</button>
+          <button class="btn" data-act="skiporder">Agora não</button>
+          <button class="btn" data-act="anotherclient">Cadastrar outro cliente</button>
+        </div>
+      </div></div>`;
+  }
+  const v = cliDraft || {};
+  const reps = S.users.filter(u=>u.role==="rep" && u.ativo);
+  const val = k => esc(v[k]||"");
+  return `<form id="clientForm" class="stack" style="max-width:860px" novalidate>
+    <div class="head"><div><p class="eyebrow">${isEmp?"Cadastro pela fábrica":"Entra na sua carteira"}</p><h2>Cadastrar cliente</h2></div></div>
+    <section class="panel stack"><h3>Empresa</h3>
+      <div class="fgrid">
+        <label class="f" for="cNome">Nome fantasia *<input id="cNome" name="nome" value="${val("nome")}" required></label>
+        <label class="f" for="cRazao">Razão social<input id="cRazao" name="razao" value="${val("razao")}"></label>
+        <label class="f" for="cDoc">CNPJ ou CPF *<input id="cDoc" name="doc" inputmode="numeric" value="${val("doc")}" placeholder="Só números"></label>
+        <label class="f" for="cSeg">Ramo<select id="cSeg" name="segmento"><option value="">Escolha</option>${SEGMENTOS.map(x=>`<option ${v.segmento===x?"selected":""}>${x}</option>`).join("")}</select></label>
+      </div></section>
+    <section class="panel stack"><h3>Contato</h3>
+      <p class="small muted">O WhatsApp é por onde a fábrica pede o logo e manda a simulação para aprovar.</p>
+      <div class="fgrid">
+        <label class="f" for="cResp">Responsável pela compra *<input id="cResp" name="responsavel" value="${val("responsavel")}"></label>
+        <label class="f" for="cWa">WhatsApp com DDD *<input id="cWa" name="whats" inputmode="tel" value="${val("whats")}" placeholder="14 99999-0000"></label>
+        <label class="f" for="cMail">E-mail<input id="cMail" name="email" type="email" value="${val("email")}"></label>
+        <label class="f" for="cInsta">Instagram<input id="cInsta" name="instagram" value="${val("instagram")}" placeholder="@loja"></label>
+      </div></section>
+    <section class="panel stack"><h3>Endereço de entrega</h3>
+      <div class="fgrid">
+        <label class="f" for="cCep">CEP<input id="cCep" name="cep" inputmode="numeric" value="${val("cep")}"></label>
+        <label class="f" for="cEnd" style="grid-column:span 2">Rua e número<input id="cEnd" name="endereco" value="${val("endereco")}"></label>
+        <label class="f" for="cBairro">Bairro<input id="cBairro" name="bairro" value="${val("bairro")}"></label>
+        <label class="f" for="cCid">Cidade *<input id="cCid" name="cidade" value="${val("cidade")}"></label>
+        <label class="f" for="cUf">UF<select id="cUf" name="uf">${UFS.map(u=>`<option ${ (v.uf||"SP")===u?"selected":""}>${u}</option>`).join("")}</select></label>
+      </div></section>
+    <section class="panel stack"><h3>Comercial</h3>
+      <div class="fgrid">
+        ${isEmp?`<label class="f" for="cRep">Carteira do representante<select id="cRep" name="repId"><option value="">Sem representante (cliente direto)</option>${reps.map(r=>`<option value="${r.id}" ${v.repId===r.id?"selected":""}>${esc(r.nome)}</option>`).join("")}</select></label>`:""}
+        <label class="f" for="cUso">Para que usa a sacola<select id="cUso" name="uso"><option value="">Escolha</option>${["Embalar vendas","Brinde","Evento","Revenda","Outro"].map(x=>`<option ${v.uso===x?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label class="f" for="cVol">Volume estimado por compra<select id="cVol" name="volume"><option value="">Escolha</option>${["200 a 500 un","500 a 1.000 un","1.000 a 2.000 un","Mais de 2.000 un"].map(x=>`<option ${v.volume===x?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label class="f" for="cFreq">Com que frequência compraria<select id="cFreq" name="frequencia"><option value="">Escolha</option>${["Uma vez","Mensal","A cada 2 ou 3 meses","Datas comemorativas"].map(x=>`<option ${v.frequencia===x?"selected":""}>${x}</option>`).join("")}</select></label>
+      </div>
+      <label class="f" for="cObs">Observações<textarea id="cObs" name="obs" placeholder="Ex.: prefere TNT preto, quer orçamento para o Natal">${val("obs")}</textarea></label>
+    </section>
+    <p id="cliErr" class="note bad" hidden></p>
+    <div class="btnrow"><button class="btn primary" type="submit">Salvar cliente</button><button type="button" class="btn" data-act="tab" data-v="clientes">Cancelar</button></div>
+    <p class="small muted">* obrigatório</p>
+  </form>`;
+}
+async function submitClient(f){
+  if (busy) return;
+  const err = $("#cliErr"), fail = t => { err.hidden=false; err.textContent=t; err.scrollIntoView({block:"center"}); };
+  err.hidden = true;
+  const v = {}; ["nome","razao","doc","segmento","responsavel","whats","email","instagram","cep","endereco","bairro","cidade","uf","repId","uso","volume","frequencia","obs"].forEach(k=>{ if (f[k]) v[k]=f[k].value.trim(); });
+  cliDraft = v;
+  const doc = digits(v.doc), wa = digits(v.whats);
+  if (!v.nome) return fail("Informe o nome fantasia do cliente.");
+  if (doc.length!==11 && doc.length!==14) return fail("O CNPJ precisa de 14 números (ou CPF com 11).");
+  if (!v.responsavel) return fail("Informe quem é o responsável pela compra.");
+  if (wa.length<10) return fail("Informe o WhatsApp com DDD. É por ele que a fábrica pede o logo.");
+  if (!v.cidade) return fail("Informe a cidade.");
+  busy = true; const btn = f.querySelector("[type=submit]"); btn.disabled = true; btn.textContent = "Salvando…";
+  try {
+    const { data:dup, error:e1 } = await sb.rpc("client_owner", { p_doc: doc, p_whats: wa });
+    if (e1) throw e1;
+    if (dup){
+      if (me.role==="rep") return fail(dup.mine ? `Esse cliente já está na sua carteira (${dup.codigo}).` : "Esse CNPJ ou WhatsApp já está cadastrado na carteira de outro representante ou é atendido direto pela fábrica. Fale com o gestor.");
+      return fail(`Já existe: ${dup.nome} (${dup.codigo}), carteira de ${dup.rep_nome || "Direto (sem representante)"}.`);
+    }
+    const repId = me.role==="rep" ? me.id : (v.repId||null);
+    const extra = Object.assign({}, v); delete extra.repId;
+    const c = Object.assign(extra, {doc, whats:wa, repId, ficha:null});
+    const { data, error } = await sb.from("clients").insert(clientToRow(c)).select().single();
+    if (error) throw error;
+    const saved = rowToClient(data);
+    S.clients.push(saved); snap.clients[saved.id] = JSON.stringify(saved);
+    cliDraft = null; justCreated = null; tab = "clientes"; render(); window.scrollTo(0,0); toast(`${saved.nome} cadastrado (${saved.codigo})`);
+  } catch(e) { fail("Não foi possível salvar: " + errMsg(e)); }
+  finally { busy = false; if (btn.isConnected) { btn.disabled = false; btn.textContent = "Salvar cliente"; } }
+}
+
+function miniSteps(o){
+  if (o.status==="cancelado") return "";
+  const idx = FLOW.indexOf(o.status);
+  return `<span class="mini" aria-hidden="true">${FLOW.map((_,i)=>`<i class="${o.status==="entregue"||i<idx?"d":(i===idx?"n":"")}"></i>`).join("")}</span>`;
+}
+
+/* ---------- months & closing ---------- */
+let fMes = null, fRep = "todos";
+const monthKey = iso => { const d = new Date(iso); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); };
+const curKey = () => monthKey(now());
+const nextKey = k => { const [y,m] = k.split("-").map(Number); return m===12 ? `${y+1}-01` : `${y}-${String(m+1).padStart(2,"0")}`; };
+const monthLabel = k => { const [y,m] = k.split("-").map(Number); const t = new Date(y,m-1,1).toLocaleDateString("pt-BR",{month:"long",year:"numeric"}); return t.charAt(0).toUpperCase()+t.slice(1); };
+const dueDate = k => { const [y,m] = k.split("-").map(Number); return new Date(y, m, Math.min(28,S.settings.diaPag||10)).toLocaleDateString("pt-BR"); };
+const orderCompet = o => o.compet || monthKey(o.criadoEm);
+function competFor(iso){ let k = monthKey(iso); while (S.fechamentos[k]) k = nextKey(k); return k; }
+const todayStr = () => { const t = new Date(); return new Date(t.getTime()-t.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+function monthStatus(k){
+  const f = S.fechamentos[k];
+  if (!f) return {txt: k===curKey() ? "Em aberto (mês em andamento)" : "Em aberto, aguardando fechamento", tone: k===curKey() ? "info" : "warn"};
+  if (!f.pagoEm) return {txt:`Fechado · pagar até ${dueDate(k)}`, tone:"warn"};
+  return {txt:`Comissões pagas em ${new Date(f.pagoEm).toLocaleDateString("pt-BR")}`, tone:"ok"};
+}
+function monthList(repId){
+  const set = new Set([curKey()]);
+  S.orders.forEach(o=>{ if (repId && o.repId!==repId) return; set.add(orderCompet(o)); });
+  Object.keys(S.fechamentos).forEach(k=>set.add(k));
+  return [...set].sort().reverse();
+}
+const monthOrders = (k, repId) => S.orders.filter(o=>o.status!=="cancelado" && o.repId && orderCompet(o)===k && (!repId || repId==="todos" || o.repId===repId)).sort((a,b)=>a.num-b.num);
+const cRep = o => o.total*o.repPct/100, cGes = o => o.total*o.gestorPct/100;
+const sumBy = (arr,f) => arr.reduce((a,x)=>a+f(x),0);
+function monthSelect(ms){ return `<label class="f" for="fMes">Mês do fechamento<select id="fMes">${ms.map(k=>`<option value="${k}" ${k===fMes?"selected":""}>${monthLabel(k)}</option>`).join("")}</select></label>`; }
+
+function viewFechamento(){
+  const ms = monthList(); if (!fMes || !ms.includes(fMes)) fMes = ms[0];
+  const reps = S.users.filter(u=>u.role==="rep");
+  const os = monthOrders(fMes, fRep);
+  const f = S.fechamentos[fMes], st = monthStatus(fMes), isEmp = me.role==="empresa";
+  const base = sumBy(os,o=>o.total), tRep = sumBy(os,cRep), tGes = sumBy(os,cGes);
+  const repRows = reps.filter(r=>fRep==="todos"||r.id===fRep).map(r=>{ const ro = os.filter(o=>o.repId===r.id); return {r, n:ro.length, base:sumBy(ro,o=>o.total), rep:sumBy(ro,cRep), ges:sumBy(ro,cGes)}; });
+  let action = "";
+  if (isEmp && !f){
+    const ck = "close-"+fMes;
+    action = `<div class="panel stack"><h3>Fechar ${monthLabel(fMes)}</h3>
+      <p class="small muted">Fecha o mês para todos os representantes. Pedidos feitos depois disso entram no mês seguinte. Prazo para pagar as comissões: ${dueDate(fMes)}.</p>
+      ${fMes===curKey()?`<p class="note info small">Este mês ainda está em andamento. Na operação real, feche no último dia do mês. Aqui você pode fechar antes para testar.</p>`:""}
+      <div><button class="btn primary" data-act="closemonth">${confirmKey===ck?"Clique de novo para confirmar o fechamento":"Fechar o mês"}</button></div></div>`;
+  } else if (isEmp && f && !f.pagoEm){
+    const ck = "pay-"+fMes;
+    action = `<div class="panel stack"><h3>Pagamento das comissões</h3>
+      <p class="small muted">Depois de pagar os representantes e o gestor, registre aqui. Cada um vê a comissão como paga.</p>
+      <div><button class="btn primary" data-act="paymonth">${confirmKey===ck?"Clique de novo para confirmar":"Registrar comissões pagas"}</button></div></div>`;
+  }
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">Comissão sobre os pedidos feitos no mês · paga no mês seguinte</p><h2>Fechamento de comissões</h2></div></div>
+    <div class="filters">
+      ${monthSelect(ms)}
+      <label class="f" for="fRep">Representante<select id="fRep"><option value="todos">Todos os representantes</option>${reps.map(r=>`<option value="${r.id}" ${fRep===r.id?"selected":""}>${esc(r.nome)}</option>`).join("")}</select></label>
+      <span class="pill" data-tone="${st.tone}" style="margin-bottom:8px">${st.txt}</span>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><span class="eyebrow">Pedidos do mês</span><b>${brl(base)}</b><span class="small muted">${os.length} pedido${os.length===1?"":"s"}</span></div>
+      <div class="kpi"><span class="eyebrow">Comissão dos representantes</span><b>${brl(tRep)}</b></div>
+      <div class="kpi"><span class="eyebrow">Parte do gestor</span><b>${brl(tGes)}</b></div>
+      <div class="kpi"><span class="eyebrow">Total a pagar</span><b>${brl(tRep+tGes)}</b><span class="small muted">${f&&f.pagoEm?"Pago":"Pagar até "+dueDate(fMes)}</span></div>
+    </div>
+    ${action}
+    <section class="stack" style="gap:8px"><h3>Por representante</h3>
+      <div class="tbl"><table><thead><tr><th>Representante</th><th class="n">Pedidos</th><th class="n">Vendido</th><th class="n">Comissão</th><th class="n">Gestor</th><th class="n">Total</th></tr></thead><tbody>
+        ${repRows.map(x=>`<tr><td><b>${esc(x.r.nome)}</b><br><span class="small muted">${esc(x.r.regiao)}</span></td><td class="n">${x.n}</td><td class="n">${brl(x.base)}</td><td class="n">${brl(x.rep)}</td><td class="n">${brl(x.ges)}</td><td class="n">${brl(x.rep+x.ges)}</td></tr>`).join("")||`<tr><td colspan="6" class="empty">Nenhum representante cadastrado.</td></tr>`}
+        ${repRows.length>1?`<tr class="tot"><td>Total</td><td class="n">${os.length}</td><td class="n">${brl(base)}</td><td class="n">${brl(tRep)}</td><td class="n">${brl(tGes)}</td><td class="n">${brl(tRep+tGes)}</td></tr>`:""}
+      </tbody></table></div></section>
+    <section class="stack" style="gap:8px"><h3>Pedidos deste fechamento</h3>
+      <div class="tbl"><table><thead><tr><th>Pedido</th><th>Data</th><th>Cliente</th><th>Representante</th><th>Situação</th><th class="n">Valor</th><th class="n">Comissão</th><th class="n">Gestor</th></tr></thead><tbody>
+        ${os.map(o=>`<tr><td class="mono">#${o.num}${o.origem==="direto"?' <span class="tag">direto</span>':""}</td><td class="mono">${fmtDate(o.criadoEm)}</td><td>${esc(client(o.clientId)?.nome)}</td><td>${esc(repName(o.repId))}</td><td>${pill(o.status)}</td><td class="n">${brl(o.total)}</td><td class="n">${brl(cRep(o))}</td><td class="n">${brl(cGes(o))}</td></tr>`).join("")||`<tr><td colspan="8" class="empty">Nenhum pedido neste mês.</td></tr>`}
+      </tbody></table></div></section>
+  </div>`;
+}
+
+/* ---------- rep commission ---------- */
+let rPer = "mes", rFrom = "", rTo = "";
+function repRange(){
+  const t = new Date(), y = t.getFullYear(), m = t.getMonth();
+  const end = new Date(y, m+1, 1);
+  if (rPer==="2m") return [new Date(y, m-1, 1), end];
+  if (rPer==="3m") return [new Date(y, m-2, 1), end];
+  if (rPer==="custom"){
+    const f = rFrom ? new Date(rFrom+"T00:00:00") : new Date(y, m, 1);
+    const e = rTo ? new Date(rTo+"T00:00:00") : t; e.setDate(e.getDate()+1);
+    return [f, e];
+  }
+  return [new Date(y, m, 1), end];
+}
+function viewComissao(){
+  const [ini, fim] = repRange();
+  const sc = showCom();
+  const os = S.orders.filter(o=>o.repId===me.id && o.status!=="cancelado" && new Date(o.criadoEm)>=ini && new Date(o.criadoEm)<fim).sort((a,b)=>b.num-a.num);
+  const vend = sumBy(os,o=>o.total);
+  const byMonth = {}; os.forEach(o=>{ const k=orderCompet(o); (byMonth[k]=byMonth[k]||[]).push(o); });
+  const months = Object.keys(byMonth).sort().reverse();
+  const per = [["mes","Este mês"],["2m","Últimos 2 meses"],["3m","Últimos 3 meses"],["custom","Personalizado"]];
+  const fmtD = d => d.toLocaleDateString("pt-BR");
+  const lastDay = new Date(fim.getTime()-864e5);
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">${fmtD(ini)} a ${fmtD(lastDay)}</p><h2>Minhas vendas</h2></div></div>
+    <div class="chips" role="group" aria-label="Período">${per.map(([v,l])=>`<button class="chip" data-act="rper" data-v="${v}" aria-pressed="${rPer===v}">${l}</button>`).join("")}</div>
+    ${rPer==="custom"?`<div class="filters"><label class="f" for="rFrom">De<input id="rFrom" type="date" value="${rFrom}"></label><label class="f" for="rTo">Até<input id="rTo" type="date" value="${rTo}" max="${todayStr()}"></label></div>`:""}
+    <div class="kpis">
+      <div class="kpi"><span class="eyebrow">Vendido no período</span><b>${brl(vend)}</b></div>
+      <div class="kpi"><span class="eyebrow">Pedidos</span><b>${os.length}</b></div>
+      <div class="kpi"><span class="eyebrow">Ticket médio</span><b>${brl(os.length?vend/os.length:0)}</b></div>
+      ${sc?`<div class="kpi"><span class="eyebrow">Comissão no período</span><b>${brl(sumBy(os,cRep))}</b></div>`:""}
+    </div>
+    ${months.length>1?`<section class="stack" style="gap:8px"><h3>Por mês</h3><div class="tbl"><table style="min-width:420px"><thead><tr><th>Mês</th><th class="n">Pedidos</th><th class="n">Vendido</th>${sc?`<th class="n">Comissão</th><th>Fechamento</th>`:""}</tr></thead><tbody>
+      ${months.map(k=>{const mo=byMonth[k], st=monthStatus(k); return `<tr><td>${monthLabel(k)}</td><td class="n">${mo.length}</td><td class="n">${brl(sumBy(mo,o=>o.total))}</td>${sc?`<td class="n">${brl(sumBy(mo,cRep))}</td><td><span class="pill" data-tone="${st.tone}">${st.txt}</span></td>`:""}</tr>`;}).join("")}
+    </tbody></table></div></section>`:""}
+    <section class="stack" style="gap:8px"><h3>Pedidos do período</h3>
+      <div class="tbl"><table><thead><tr><th>Pedido</th><th>Data</th><th>Cliente</th><th>Situação</th><th class="n">Valor</th>${sc?`<th class="n">Comissão</th>`:""}</tr></thead><tbody>
+        ${os.map(o=>`<tr><td class="mono">#${o.num}${o.origem==="direto"?' <span class="tag">direto</span>':""}</td><td class="mono">${fmtDate(o.criadoEm)}</td><td>${esc(client(o.clientId)?.nome)}</td><td>${pill(o.status)}</td><td class="n">${brl(o.total)}</td>${sc?`<td class="n">${brl(cRep(o))}</td>`:""}</tr>`).join("")||`<tr><td colspan="${sc?6:5}" class="empty">Nenhum pedido neste período.</td></tr>`}
+      </tbody></table></div></section>
+  </div>`;
+}
+
+/* ---------- recebimentos (conciliação) ---------- */
+const FORMAS = ["Pix","Boleto","Cartão","Transferência","Dinheiro"];
+function newPay(tipo, valor, data){ const f = $("#payForma")?.value || "Pix"; return {id:uid("p"), tipo, valor, data, forma:f, conferido:false, conferidoEm:null}; }
+const dayStr = iso => new Date(iso).toLocaleDateString("sv-SE");
+let pPer = "hoje", pFrom = "", pTo = "", pConf = "todos";
+function payRange(){
+  const t = new Date(), d = n => new Date(t.getFullYear(), t.getMonth(), t.getDate()-n).toLocaleDateString("sv-SE");
+  if (pPer==="ontem") return [d(1), d(1)];
+  if (pPer==="7d") return [d(6), d(0)];
+  if (pPer==="mes") return [new Date(t.getFullYear(), t.getMonth(), 1).toLocaleDateString("sv-SE"), d(0)];
+  if (pPer==="custom") return [pFrom || d(0), pTo || d(0)];
+  return [d(0), d(0)];
+}
+function allPays(){
+  const out = [];
+  S.orders.forEach(o=>(o.pagamentos||[]).forEach(x=>out.push({o, x})));
+  return out.sort((a,b)=> a.x.data < b.x.data ? 1 : -1);
+}
+function viewRecebimentos(){
+  const [ini, fim] = payRange();
+  const inRange = allPays().filter(({x})=>{ const d = dayStr(x.data); return d>=ini && d<=fim; });
+  const list = inRange.filter(({x})=> pConf==="todos" || (pConf==="sim" ? x.conferido : !x.conferido));
+  const tot = sumBy(inRange,({x})=>x.valor), conf = sumBy(inRange.filter(({x})=>x.conferido),({x})=>x.valor);
+  const pend = inRange.filter(({x})=>!x.conferido);
+  const porForma = FORMAS.map(f=>{ const it = inRange.filter(({x})=>x.forma===f); return {f, n:it.length, v:sumBy(it,({x})=>x.valor), c:sumBy(it.filter(({x})=>x.conferido),({x})=>x.valor)}; }).filter(r=>r.n);
+  const per = [["hoje","Hoje"],["ontem","Ontem"],["7d","Últimos 7 dias"],["mes","Este mês"],["custom","Personalizado"]];
+  const fmtD = s2 => s2.split("-").reverse().join("/");
+  const sinais = S.orders.filter(o=>o.status==="sinal"), saldos = S.orders.filter(o=>o.status==="saldo");
+  const aRecSinal = sumBy(sinais,o=>o.total/2), aRecSaldo = sumBy(saldos,o=>Math.max(0,o.total-recebido(o)));
+  const ck = "confall";
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">${ini===fim?fmtD(ini):fmtD(ini)+" a "+fmtD(fim)}</p><h2>Recebimentos</h2></div></div>
+    <div class="chips" role="group" aria-label="Período">${per.map(([v,l])=>`<button class="chip" data-act="pper" data-v="${v}" aria-pressed="${pPer===v}">${l}</button>`).join("")}</div>
+    ${pPer==="custom"?`<div class="filters"><label class="f" for="pFrom">De<input id="pFrom" type="date" value="${ini}" max="${todayStr()}"></label><label class="f" for="pTo">Até<input id="pTo" type="date" value="${fim}" max="${todayStr()}"></label></div>`:""}
+    <div class="kpis">
+      <div class="kpi"><span class="eyebrow">Entrou no período</span><b>${brl(tot)}</b><span class="small muted">${inRange.length} recebimento${inRange.length===1?"":"s"}</span></div>
+      <div class="kpi"><span class="eyebrow">Conferido no banco</span><b>${brl(conf)}</b></div>
+      <div class="kpi"><span class="eyebrow">Falta conferir</span><b>${brl(tot-conf)}</b><span class="small muted">${pend.length} lançamento${pend.length===1?"":"s"}</span></div>
+    </div>
+    ${porForma.length?`<div class="tbl"><table style="min-width:420px"><thead><tr><th>Forma</th><th class="n">Lançamentos</th><th class="n">Total</th><th class="n">Conferido</th><th class="n">Falta</th></tr></thead><tbody>
+      ${porForma.map(r=>`<tr><td>${r.f}</td><td class="n">${r.n}</td><td class="n">${brl(r.v)}</td><td class="n">${brl(r.c)}</td><td class="n">${brl(r.v-r.c)}</td></tr>`).join("")}
+    </tbody></table></div>`:""}
+    <section class="stack" style="gap:8px">
+      <div class="head"><h3>Lançamentos</h3>
+        <div class="chips" role="group" aria-label="Conferência">${[["todos","Todos"],["nao","A conferir"],["sim","Conferidos"]].map(([v,l])=>`<button class="chip" data-act="pconf" data-v="${v}" aria-pressed="${pConf===v}">${l}</button>`).join("")}</div></div>
+      <p class="small muted">Abra o extrato do banco do mesmo período e marque cada valor que encontrar lá.</p>
+      <div class="tbl"><table><thead><tr><th>Data</th><th>Pedido</th><th>Cliente</th><th>Tipo</th><th>Forma</th><th class="n">Valor</th><th>Banco</th></tr></thead><tbody>
+        ${list.map(({o,x})=>`<tr><td class="mono">${fmtDate(x.data)}</td><td><button class="linkbtn mono" style="color:var(--accent);padding:0" data-act="open" data-id="${o.id}">#${o.num}</button></td><td>${esc(client(o.clientId)?.nome)}</td><td>${esc(x.tipo)}</td><td>${esc(x.forma)}</td><td class="n">${brl(x.valor)}</td>
+          <td>${x.conferido?`<button class="btn small" data-act="conf" data-o="${o.id}" data-p="${x.id}" title="Desfazer">Conferido ✓</button>`:`<button class="btn small primary" data-act="conf" data-o="${o.id}" data-p="${x.id}">Conferir</button>`}</td></tr>`).join("")||`<tr><td colspan="7" class="empty">Nenhum recebimento ${pConf==="nao"?"a conferir ":pConf==="sim"?"conferido ":""}neste período.</td></tr>`}
+      </tbody></table></div>
+      ${pend.length>1?`<div><button class="btn small" data-act="confall">${confirmKey===ck?`Clique de novo para marcar os ${pend.length} como conferidos`:"Marcar todos do período como conferidos"}</button></div>`:""}
+    </section>
+    <section class="stack" style="gap:8px"><h3>Ainda a receber dos clientes</h3>
+      <div class="kpis">
+        <div class="kpi"><span class="eyebrow">Sinais pendentes</span><b>${brl(aRecSinal)}</b><span class="small muted">${sinais.length} pedido${sinais.length===1?"":"s"} com arte aprovada</span></div>
+        <div class="kpi"><span class="eyebrow">Saldos pendentes</span><b>${brl(aRecSaldo)}</b><span class="small muted">${saldos.length} pedido${saldos.length===1?"":"s"} produzido${saldos.length===1?"":"s"} + frete</span></div>
+      </div>
+      ${sinais.length+saldos.length?`<div class="tbl"><table><thead><tr><th>Pedido</th><th>Cliente</th><th>Falta</th><th class="n">Valor</th></tr></thead><tbody>
+        ${[...sinais,...saldos].map(o=>`<tr><td><button class="linkbtn mono" style="color:var(--accent);padding:0" data-act="open" data-id="${o.id}">#${o.num}</button></td><td>${esc(client(o.clientId)?.nome)}</td><td>${o.status==="sinal"?"Sinal 50%":"Saldo 50%"+(freteGratis(o)?"":" + frete")}</td><td class="n">${brl(o.status==="sinal"?o.total/2:Math.max(0,o.total-recebido(o)))}</td></tr>`).join("")}
+      </tbody></table></div>`:""}
+    </section>
+  </div>`;
+}
+
+/* ---------- empresa painel ---------- */
+function viewPainel(){
+  const os = S.orders.filter(o=>o.status!=="cancelado");
+  const mes = monthOrders(curKey(),"todos");
+  const vendMes = sumBy(os.filter(o=>monthKey(o.criadoEm)===curKey()),o=>o.total);
+  const receb = sumBy(os,recebido), aReceber = sumBy(os,o=>Math.max(0,o.total-recebido(o)));
+  const q = st => S.orders.filter(o=>o.status===st).sort((a,b)=>a.num-b.num);
+  const block = (title,hint,list) => `<section class="stack" style="gap:8px"><div class="head"><h3>${title} <span class="num muted">(${list.length})</span></h3><span class="small muted">${hint}</span></div>${orderList(list,{empty:"Nada aqui agora."})}</section>`;
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">Fábrica</p><h2>O que precisa de você hoje</h2></div><button class="btn primary" data-act="tab" data-v="novo">Lançar pedido direto</button></div>
+    <div class="kpis">
+      <div class="kpi"><span class="eyebrow">Vendido em ${monthLabel(curKey()).toLowerCase()}</span><b>${brl(vendMes)}</b></div>
+      <div class="kpi"><span class="eyebrow">Recebido dos clientes</span><b>${brl(receb)}</b></div>
+      <div class="kpi"><span class="eyebrow">A receber dos clientes</span><b>${brl(aReceber)}</b></div>
+      <div class="kpi"><span class="eyebrow">Comissões do mês</span><b>${brl(sumBy(mes,o=>cRep(o)+cGes(o)))}</b><span class="small muted">Pagar até ${dueDate(curKey())}</span></div>
+    </div>
+    ${block("Arte","Confirme quando o cliente aprovar (WhatsApp ou sistema)",q("arte"))}
+    ${block("Aguardando sinal","Registre o sinal para liberar a produção",q("sinal"))}
+    ${block("Em produção","Marque quando a produção terminar",q("producao"))}
+    ${block("Aguardando saldo e frete","Produção pronta, falta o restante e o frete",q("saldo"))}
+    ${block("Pronto para envio","Pago e produzido",q("envio"))}
+  </div>`;
+}
+
+/* ---------- gestor visão geral ---------- */
+function viewGeral(){
+  const reps = S.users.filter(u=>u.role==="rep");
+  const k = curKey(), os = monthOrders(k,"todos");
+  const rows = reps.map(r=>{ const ro = os.filter(o=>o.repId===r.id);
+    return {r, clientes:S.clients.filter(c=>c.repId===r.id).length, n:ro.length, vend:sumBy(ro,o=>o.total), rep:sumBy(ro,cRep), g:sumBy(ro,cGes)}; });
+  const max = Math.max(1,...rows.map(x=>x.vend));
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">Gestor · ${S.settings.gestorPct}% sobre as vendas da equipe</p><h2>Equipe em ${monthLabel(k).toLowerCase()}</h2></div><button class="btn" data-act="tab" data-v="fechamento">Ver fechamentos</button></div>
+    <div class="kpis">
+      <div class="kpi"><span class="eyebrow">Vendido pela equipe</span><b>${brl(sumBy(os,o=>o.total))}</b><span class="small muted">${os.length} pedido${os.length===1?"":"s"}</span></div>
+      <div class="kpi"><span class="eyebrow">Comissão dos representantes</span><b>${brl(sumBy(os,cRep))}</b></div>
+      <div class="kpi"><span class="eyebrow">Sua parte</span><b>${brl(sumBy(os,cGes))}</b><span class="small muted">Recebe até ${dueDate(k)}</span></div>
+      <div class="kpi"><span class="eyebrow">Representantes ativos</span><b>${reps.filter(r=>r.ativo).length}</b></div>
+    </div>
+    <div class="tbl"><table><thead><tr><th>Representante</th><th class="n">Clientes</th><th class="n">Pedidos no mês</th><th>Volume</th><th class="n">Vendido</th><th class="n">Comissão</th><th class="n">Sua parte</th></tr></thead><tbody>
+      ${rows.map(x=>`<tr><td><b>${esc(x.r.nome)}</b><br><span class="small muted">${esc(x.r.regiao)}${x.r.ativo?"":" · inativo"}</span></td><td class="n">${x.clientes}</td><td class="n">${x.n}</td>
+        <td><div class="bar" title="${brl(x.vend)}"><i style="width:${x.vend/max*100}%"></i></div></td>
+        <td class="n">${brl(x.vend)}</td><td class="n">${brl(x.rep)}</td><td class="n">${brl(x.g)}</td></tr>`).join("")||`<tr><td colspan="7" class="empty">Nenhum representante cadastrado.</td></tr>`}
+    </tbody></table></div>
+    <section class="stack" style="gap:8px"><h3>Últimos pedidos da equipe</h3>${orderList(visOrders().slice(0,6))}</section>
+  </div>`;
+}
+
+/* ---------- users ---------- */
+function viewUsuarios(){
+  const roleLabel = {empresa:"Empresa",gestor:"Gestor",rep:"Representante"};
+  return `<div class="stack">
+    <div class="head"><div><p class="eyebrow">Quem entra no sistema</p><h2>Acessos</h2></div></div>
+    <form id="userForm" class="panel stack">
+      <h3>Criar acesso</h3>
+      <div class="fgrid">
+        <label class="f" for="uNome">Nome<input id="uNome" name="nome" required></label>
+        <label class="f" for="uLogin">Usuário<input id="uLogin" name="login" autocomplete="off" required></label>
+        <label class="f" for="uSenha">Senha inicial (mínimo 8)<input id="uSenha" name="senha" type="text" autocomplete="new-password" required></label>
+        <label class="f" for="uRole">Papel<select id="uRole" name="role"><option value="rep">Representante</option><option value="gestor">Gestor</option></select></label>
+        <label class="f" for="uReg">Região<input id="uReg" name="regiao" placeholder="Ex.: Bauru e região"></label>
+      </div>
+      <p id="userErr" class="note bad" hidden></p>
+      <div><button class="btn primary" type="submit">Criar acesso</button></div>
+    </form>
+    <div class="tbl"><table><thead><tr><th>Nome</th><th>Papel</th><th>Usuário</th><th>Região</th><th>Situação</th><th></th></tr></thead><tbody>
+      ${S.users.map(u=>`<tr><td><b>${esc(u.nome)}</b></td><td>${roleLabel[u.role]}</td><td class="mono">${esc(u.login)}</td>
+        <td>${esc(u.regiao)}</td><td>${u.ativo?'<span class="pill" data-tone="ok">Ativo</span>':'<span class="pill" data-tone="bad">Bloqueado</span>'}</td>
+        <td>${u.role==="empresa"?"":`<button class="btn small" data-act="toggleuser" data-id="${u.id}">${u.ativo?"Bloquear":"Reativar"}</button>`}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="small muted">Passe o usuário e a senha inicial para a pessoa. Ela pode trocar a senha depois em "Trocar senha". Bloquear um representante tira o acesso dele na hora, mas os clientes e as comissões continuam registrados no nome dele.</p>
+  </div>`;
+}
+
+/* ---------- config ---------- */
+function viewConfig(){
+  const st = S.settings;
+  return `<form id="cfgForm" class="stack">
+    <div class="head"><div><p class="eyebrow">Vale para os próximos pedidos</p><h2>Preços e comissões</h2></div><button class="btn primary" type="submit">Salvar</button></div>
+    <section class="panel stack"><h3>Comissões</h3>
+      <div class="fgrid">
+        <label class="f" for="cRep">Representante (% do pedido)<input id="cRep" name="repPct" type="number" step="0.5" min="0" value="${st.repPct}"></label>
+        <label class="f" for="cGes">Gestor da equipe (% do pedido)<input id="cGes" name="gestorPct" type="number" step="0.5" min="0" value="${st.gestorPct}"></label>
+        <label class="f" for="cTwo">Acréscimo 2 cores (R$ por unidade)<input id="cTwo" name="twoColorAdd" type="number" step="0.01" min="0" value="${st.twoColorAdd}"></label>
+        <label class="f" for="cRepVe">Representante vê a própria comissão<select id="cRepVe" name="repVeComissao"><option value="nao" ${st.repVeComissao?"":"selected"}>Não, só a fábrica e o gestor</option><option value="sim" ${st.repVeComissao?"selected":""}>Sim, só a dele</option></select></label>
+        <label class="f" for="cFrete">Frete grátis a partir de (R$, 0 = nunca)<input id="cFrete" name="freteGratisMin" type="number" step="50" min="0" value="${st.freteGratisMin}"></label>
+        <label class="f" for="cDia">Dia de pagar as comissões (mês seguinte)<input id="cDia" name="diaPag" type="number" min="1" max="28" value="${st.diaPag}"></label>
+        <label class="f" for="cFabWa">WhatsApp da fábrica para receber logos<input id="cFabWa" name="fabricaWhats" inputmode="tel" placeholder="14 99999-0000" value="${esc(st.fabricaWhats||"")}"></label>
+      </div>
+      <p class="small muted">Vale para pedidos novos. Pedidos já lançados guardam o percentual do dia em que foram feitos.</p>
+    </section>
+    <section class="stack" style="gap:8px"><h3>Preço por unidade na faixa inicial (R$)</h3>
+      <div class="tbl"><table><thead><tr><th>Modelo</th><th class="n">Mínimo</th><th class="n">Arte P</th><th class="n">Arte M</th><th class="n">Arte G</th></tr></thead><tbody>
+        ${st.models.map(m=>`<tr><td>${esc(m.name)}</td><td class="n"><input aria-label="Mínimo ${esc(m.name)}" name="min-${m.id}" type="number" min="1" value="${m.min}"></td>
+          ${["P","M","G"].map(s=>`<td class="n"><input aria-label="${esc(m.name)} arte ${s}" name="p-${m.id}-${s}" type="number" step="0.01" min="0" value="${m.prices[s].toFixed(2)}"></td>`).join("")}</tr>`).join("")}
+      </tbody></table></div></section>
+    <section class="stack" style="gap:8px"><h3>Desconto por quantidade</h3>
+      <div class="tbl"><table style="min-width:360px"><thead><tr><th>A partir de</th><th class="n">Desconto (%)</th></tr></thead><tbody>
+        ${st.tiers.map((t,i)=>`<tr><td class="mono">${t.min.toLocaleString("pt-BR")} un</td><td class="n"><input aria-label="Desconto a partir de ${t.min}" name="tier-${i}" type="number" step="1" min="0" max="60" value="${Math.round((1-t.f)*100)}"></td></tr>`).join("")}
+      </tbody></table></div></section>
+  </form>`;
+}
+
+const VIEWS = {senha:viewSenha, recebimentos:viewRecebimentos, fechamento:viewFechamento, cadcliente:viewCadCliente, novo:viewNovo, pedidos:viewPedidos, clientes:viewClientes, comissao:viewComissao, painel:viewPainel, geral:viewGeral, usuarios:viewUsuarios, config:viewConfig};
+
+/* ---------- drawer ---------- */
+function renderLayer(){
+  const L = $("#layer");
+  if (!drawer || portal || !me){ L.innerHTML=""; return; }
+  const o = order(drawer); if (!o){ drawer=null; L.innerHTML=""; return; }
+  const c = client(o.clientId), m = model(o.modelId), k = com(o);
+  const idx = FLOW.indexOf(o.status);
+  const isEmp = me.role==="empresa";
+  const steps = FLOW.map((s,i)=>`<div class="step ${o.status==="cancelado"?"":(i<idx||o.status==="entregue"?"done":(i===idx?"now":""))}"><i></i>${STEP_LABEL[i]}</div>`).join("");
+  const rec = recebido(o), falta = Math.max(0, o.total-rec);
+  let comBlock = "";
+  if (o.repId && showCom()){
+    const rows = [];
+    if (me.role==="rep") rows.push(`<div class="sumline"><span>Sua comissão (${o.repPct}%)</span><b class="num">${brl(k.rep)}</b></div>`);
+    else { rows.push(`<div class="sumline"><span>${esc(repName(o.repId))} (${o.repPct}%)</span><b class="num">${brl(k.rep)}</b></div>`); rows.push(`<div class="sumline"><span>Gestor da equipe (${o.gestorPct}%)</span><b class="num">${brl(k.gestor)}</b></div>`); }
+    comBlock = `<section class="panel stack" style="gap:6px"><div class="head"><h3>Comissão</h3>${k.state?`<span class="pill" data-tone="${COM_TONE[k.state]}">${k.state}</span>`:""}</div>${rows.join("")}
+      ${o.origem==="direto"?`<p class="note info small">Pedido fechado direto pela fábrica. O cliente é da carteira de ${esc(repName(o.repId))}, então a comissão é dele.</p>`:""}
+      ${o.status!=="cancelado"?`<p class="small muted">Entra no fechamento de <b>${monthLabel(orderCompet(o))}</b>, pago até ${dueDate(orderCompet(o))}. Não depende do pagamento do cliente.</p>`:""}</section>`;
+  }
+  const payBlock = o.status!=="cancelado" ? `<section class="panel stack" style="gap:6px"><div class="head"><h3>Pagamento do cliente</h3><span class="small muted">Sinal 50% + saldo 50%</span></div>
+      <div class="sumline"><span>Recebido</span><b class="num">${brl(rec)}</b></div>
+      <div class="sumline"><span>Falta receber (pedido)</span><b class="num">${brl(falta)}</b></div>
+      <div class="sumline"><span>Frete</span><b class="num">${freteTxt(o)}</b></div>
+      ${(o.pagamentos||[]).map(x=>`<div class="sumline small"><span>${x.tipo} · ${fmtDate(x.data)} · ${esc(x.forma)} ${isEmp?(x.conferido?`<span class="pill" data-tone="ok">conferido</span>`:`<span class="pill" data-tone="warn">a conferir</span>`):""}</span><span class="num">${brl(x.valor)}</span></div>`).join("")}
+    </section>` : "";
+  const fabWa = digits(S.settings.fabricaWhats||"");
+  const fabFmt = fabWa ? `(${fabWa.slice(0,2)}) ${fabWa.slice(2,-4)}-${fabWa.slice(-4)}` : "";
+  const sendToFab = me.role==="rep" && fabWa;
+  const msg = `Olá, ${c?.responsavel||c?.nome}! ${me.role==="rep"?`Aqui é ${me.nome}, representante da Beg Sacolas.`:"Aqui é da Beg Sacolas."} Seu pedido nº ${o.num} foi registrado: ${o.qty} un de ${m?.name}, TNT ${o.color.toLowerCase()}, arte ${o.size}, total ${brl(o.total)}.\n\nPara começar a arte, envie o logo da ${c?.nome} por este link, onde você também acompanha o pedido: ${portalUrl(o)}\n\nSe preferir, mande o logo ${sendToFab?`para o WhatsApp da fábrica: ${fabFmt}`:"respondendo esta mensagem"}. Antes de produzir, você recebe a simulação para aprovar.\n\nPagamento: 50% de sinal para iniciar a produção e 50% antes do envio. ${freteGratis(o)?"Frete grátis.":"O frete é informado e pago junto com o saldo."}`;
+  const cliWa = digits(c?.whats||"");
+  const waHref = `https://wa.me/${cliWa.length<=11?"55"+cliWa:cliWa}?text=${encodeURIComponent(msg)}`;
+  const dateField = `<div class="fgrid"><label class="f" for="payDate">Data do pagamento<input id="payDate" type="date" value="${todayStr()}" max="${todayStr()}"></label><label class="f" for="payForma">Forma de pagamento<select id="payForma">${FORMAS.map(f=>`<option>${f}</option>`).join("")}</select></label></div>`;
+  let actions = "";
+  if (isEmp){
+    if (o.status==="arte") actions = `<section class="panel stack"><h3>Arte</h3>
+      <p class="small muted">Pode resolver tudo pelo WhatsApp: receba o logo, mande a simulação e, quando o cliente aprovar, clique abaixo.</p>
+      <div><button class="btn primary" data-act="approveart">Cliente aprovou a arte</button></div>
+      <label class="f" for="empLogo">Guardar o logo na ficha do cliente (opcional)<input type="file" accept="image/*" id="empLogo"></label></section>`;
+    if (o.status==="sinal") actions = `<section class="panel stack"><h3>Sinal</h3><p class="small muted">Com o sinal registrado, o pedido vai para produção.</p>${dateField}
+      <div class="btnrow"><button class="btn primary" data-act="paysinal">Recebeu o sinal (${brl(o.total/2)})</button><button class="btn" data-act="payfull">Recebeu o valor total</button></div></section>`;
+    if (o.status==="producao") actions = `<section class="panel stack"><h3>Produção</h3><p class="small muted">${falta>0||!freteGratis(o)?"Ao concluir, o pedido vai para o saldo e o frete antes do envio.":"Pedido quitado e com frete grátis: ao concluir, fica pronto para envio."}</p><div><button class="btn primary" data-act="prodok">Produção concluída</button></div></section>`;
+    if (o.status==="saldo") actions = `<section class="panel stack"><h3>Saldo e frete</h3>
+      ${freteGratis(o)?`<p class="note ok small">Frete grátis: pedido acima de ${brl(S.settings.freteGratisMin)}.</p>`:`<p class="small muted">Pedido abaixo de ${brl(S.settings.freteGratisMin)}: informe o frete para cobrar junto com o saldo.</p>
+      <label class="f" for="freteVal" style="max-width:220px">Valor do frete (R$)<input id="freteVal" type="number" step="0.01" min="0" inputmode="decimal" value="${o.frete!=null?o.frete:""}"></label>`}
+      <div class="sumline"><span>Saldo do pedido</span><b class="num">${brl(falta)}</b></div>
+      <div class="sumline"><span>Total a receber agora</span><b class="num" id="saldoTot">${brl(falta + (freteGratis(o)?0:(o.frete||0)))}</b></div>
+      ${dateField}<p id="saldoErr" class="note bad small" hidden></p>
+      <div><button class="btn primary" data-act="paysaldo">Confirmar recebimento</button></div></section>`;
+    if (o.status==="envio") actions = `<section class="panel stack"><h3>Envio</h3><div><button class="btn primary" data-act="shipped">Marcar como enviado</button></div></section>`;
+    const canCancel = (o.status==="arte"||o.status==="sinal") && !S.fechamentos[orderCompet(o)];
+    if (canCancel) actions += `<div><button class="btn danger small" data-act="cancel">${confirmKey==="cancel-"+o.id?"Clique de novo para cancelar o pedido":"Cancelar pedido"}</button></div>`;
+  }
+  const clientLink = o.status==="arte" && me.role!=="gestor" ? `
+    <section class="panel stack"><h3>Avisar o cliente</h3>
+      <p class="small muted">O botão abre o WhatsApp com o número de ${esc(c?.responsavel||c?.nome)} e a mensagem prontos. É só apertar enviar.${me.role==="rep"&&!fabWa?" Peça à fábrica para cadastrar o WhatsApp dela, assim o cliente manda o logo direto para lá.":""}</p>
+      <div class="copybox" id="msgText">${esc(msg)}</div>
+      <div class="btnrow"><a class="btn primary" href="${waHref}" target="_blank" rel="noopener">Enviar pelo WhatsApp</a><button class="btn small" data-act="copy">Copiar mensagem</button><a class="btn small" href="${portalUrl(o)}" target="_blank" rel="noopener">Abrir link do cliente</a></div>
+      <p class="small muted">Enviando para <span class="mono">${esc(c?.whats)}</span>. Se o WhatsApp não abrir, use Copiar mensagem.</p>
+    </section>` : "";
+  $("#layer").innerHTML = `<div class="scrim" data-act="close"></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-label="Pedido ${o.num}">
+    <div class="dhead"><div><p class="eyebrow">Pedido <span class="mono">#${o.num}</span> · ${fmtDate(o.criadoEm)}${o.origem==="direto"?' · <span class="tag">direto</span>':""}</p><h2>${esc(c?.nome)}</h2></div>
+      <button class="btn small" data-act="close" aria-label="Fechar">Fechar</button></div>
+    <div>${pill(o.status)}</div>
+    ${o.status!=="cancelado"?`<div class="steps" style="grid-template-columns:repeat(5,minmax(0,1fr))">${steps}</div>`:""}
+    <div class="dgrid">
+      <div class="mock">${bagSVG(o.modelId,o.color,o.size,o.logo,"Simulação do pedido "+o.num)}</div>
+      <dl class="kv">
+        <dt>Modelo</dt><dd>${esc(m?.name)}</dd><dt>TNT</dt><dd>${esc(o.color)}</dd>
+        <dt>Arte</dt><dd>${o.size} · ${o.cores} cor${o.cores>1?"es":""}</dd><dt>Quantidade</dt><dd class="num">${o.qty.toLocaleString("pt-BR")} un</dd>
+        <dt>Unitário</dt><dd class="num">${brl(o.unit)}</dd><dt>Total</dt><dd class="num"><b>${brl(o.total)}</b></dd>
+        ${me.role!=="rep"?`<dt>Carteira</dt><dd>${esc(repName(o.repId))}</dd>`:""}
+        <dt>Cidade</dt><dd>${esc(c?.cidade)}</dd>
+      </dl>
+    </div>
+    ${actions}
+    ${clientLink}
+    ${payBlock}
+    ${comBlock}
+    <section class="stack" style="gap:8px"><h3>Histórico</h3><div class="hist">${o.hist.slice().reverse().map(h=>`<div><time>${fmtDT(h.t)}</time>${esc(h.txt)}</div>`).join("")}</div></section>
+  </aside>`;
+  const fi = $("#empLogo"); if (fi) fi.addEventListener("change", e=>readLogo(e.target.files[0], url=>{ o.logo=url; log(o,"Fábrica anexou o logo do cliente"); save(); render(); toast("Logo guardado"); }));
+}
+
+/* ---------- portal (cliente) ---------- */
+const portalUrl = o => location.origin + location.pathname + "#p-" + o.token;
+function viewPortal(){
+  const head = `<div class="brand" style="font-size:1.2rem">${brandMark()}<span>Beg Sacolas</span></div>`;
+  if (!portalData) return `<main class="wrap"><div class="portal stack">${head}<p class="note bad">${esc(portalErr || "Carregando…")}</p></div></main>`;
+  const p = portalData.pedido || {}, o = Object.assign({}, p, {status:portalData.status, total:Number(portalData.total), num:portalData.num});
+  const m = model(o.modelId) || {name:"Sacola"}, rec = Number(portalData.recebido)||0;
+  const fg = (Number(portalData.freteGratisMin)||0) > 0 && o.total >= Number(portalData.freteGratisMin);
+  let body = "";
+  if (o.status==="arte") body = `<section class="panel stack">
+      <h3>${o.logo?"Logo recebido":"Envie o logo da sua empresa"}</h3>
+      <p class="muted">Pode ser foto, PNG, JPG ou print. Se preferir, mande pelo WhatsApp.</p>
+      <label class="f" for="cliLogo">${o.logo?"Trocar o arquivo":"Escolher arquivo"}<input type="file" accept="image/*" id="cliLogo"></label>
+      ${o.logo?`<p class="muted">Confira a prévia acima. Se estiver tudo certo, aprove para seguir.</p><div><button class="btn primary" data-act="papprove">Aprovar arte</button></div>`:""}
+    </section>`;
+  else if (o.status==="sinal") body = `<section class="panel"><p class="note ok">Arte aprovada. Para iniciar a produção, falta o sinal de ${brl(o.total/2)}.</p></section>`;
+  else if (o.status==="producao") body = `<section class="panel"><p class="note ok">Sinal recebido. Sua sacola está em produção.</p></section>`;
+  else if (o.status==="saldo") body = `<section class="panel"><p class="note info">Produção pronta. Para enviar, falta o saldo de ${brl(Math.max(0,o.total-rec))}${fg?" (frete grátis)":" mais o frete, que a fábrica vai informar"}.</p></section>`;
+  else if (o.status==="envio") body = `<section class="panel"><p class="note ok">Pedido pago e pronto. Será enviado em breve.</p></section>`;
+  else if (o.status==="entregue") body = `<section class="panel"><p class="note ok">Pedido enviado. Para repetir, é só chamar seu representante: sua arte fica guardada.</p></section>`;
+  else body = `<section class="panel"><p class="note bad">Este pedido foi cancelado.</p></section>`;
+  const idx = FLOW.indexOf(o.status);
+  const steps = o.status==="cancelado" ? "" : `<div class="steps" style="grid-template-columns:repeat(5,minmax(0,1fr))">${FLOW.map((s2,i)=>`<div class="step ${i<idx||o.status==="entregue"?"done":(i===idx?"now":"")}"><i></i>${STEP_LABEL[i]}</div>`).join("")}</div>`;
+  return `<main class="wrap"><div class="portal stack">
+    ${head}
+    <div><p class="eyebrow">Pedido <span class="mono">#${o.num}</span></p><h2>${esc(portalData.cliente)}</h2></div>
+    ${steps}
+    <div class="mock">${bagSVG(o.modelId,o.color,o.size,o.logo,"Simulação da sua sacola")}</div>
+    <dl class="kv panel"><dt>Sacola</dt><dd>${esc(m.name)}</dd><dt>Cor do TNT</dt><dd>${esc(o.color)}</dd><dt>Arte</dt><dd>${esc(o.size)} — ${SIZE_INFO[o.size]||""}</dd><dt>Quantidade</dt><dd class="num">${Number(o.qty||0).toLocaleString("pt-BR")} un</dd><dt>Total</dt><dd class="num">${brl(o.total)}</dd></dl>
+    ${body}
+  </div></main>`;
+}
+
+function readLogo(file, cb){
+  if (!file) return;
+  if (!/^image\//.test(file.type)) { toast("Escolha um arquivo de imagem (PNG, JPG ou SVG)."); return; }
+  const fr = new FileReader();
+  fr.onload = () => {
+    const url = fr.result;
+    const img = new Image();
+    img.onload = () => {
+      const W = img.width || 600, H = img.height || 600, max = 600, r = Math.min(1, max/Math.max(W,H));
+      const cv = document.createElement("canvas"); cv.width = Math.round(W*r); cv.height = Math.round(H*r);
+      cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+      cb(cv.toDataURL("image/png"));
+    };
+    img.onerror = () => toast("Não deu para abrir essa imagem. Tente outro arquivo.");
+    img.src = url;
+  };
+  fr.readAsDataURL(file);
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el) return;
+  const act = el.dataset.act, o = drawer ? order(drawer) : (portal ? order(portal) : null);
+  const keepConfirm = ["confall","cancel","closemonth","paymonth"].includes(act);
+  if (!keepConfirm) confirmKey = null;
+  switch(act){
+    case "logout": (async()=>{ try { await queue; await sb.auth.signOut(); } catch(_){} me=null; tab=null; drawer=null; draft=null; loginMsg=""; S = {settings:null, users:[], clients:[], orders:[], fechamentos:{}}; render(); })(); break;
+    case "tab": tab = el.dataset.v; drawer=null; if (tab!=="novo") draft=null; render(); window.scrollTo(0,0); refresh(); break;
+    case "filter": filter = el.dataset.v; render(); break;
+    case "pper": pPer = el.dataset.v; if (pPer==="custom" && !pFrom){ pFrom = todayStr(); pTo = todayStr(); } render(); break;
+    case "pconf": pConf = el.dataset.v; render(); break;
+    case "conf": { const oo = order(el.dataset.o), x = oo.pagamentos.find(y=>y.id===el.dataset.p); x.conferido = !x.conferido; x.conferidoEm = x.conferido ? now() : null;
+      log(oo, `${x.tipo} de ${brl(x.valor)} ${x.conferido?"conferido no banco":"marcado como não conferido"}`); save(); render(); break; }
+    case "confall": if (confirmKey==="confall"){ confirmKey=null; const [i2,f2] = payRange(); allPays().forEach(({o:oo,x})=>{ const d=dayStr(x.data); if(d>=i2&&d<=f2&&!x.conferido){ x.conferido=true; x.conferidoEm=now(); log(oo,`${x.tipo} de ${brl(x.valor)} conferido no banco`);} }); save(); toast("Recebimentos marcados como conferidos"); } else confirmKey="confall"; render(); break;
+    case "rper": rPer = el.dataset.v; if (rPer==="custom" && !rFrom){ const t=new Date(); rFrom = new Date(t.getFullYear(),t.getMonth(),1).toLocaleDateString("sv-SE"); rTo = todayStr(); } render(); break;
+    case "open": drawer = el.dataset.id; renderLayer(); setTimeout(()=>$(".drawer [data-act=close].btn")?.focus(),0); break;
+    case "close": drawer = null; renderLayer(); break;
+    case "color": if (draft){ draft.color = el.dataset.v; document.querySelectorAll(".sw").forEach(b=>b.setAttribute("aria-pressed", b===el)); updateSummary(); } break;
+    case "newclient": justCreated = null; cliDraft = null; tab="cadcliente"; drawer=null; render(); window.scrollTo(0,0); break;
+    case "orderfornew": draft = freshDraft(); draft.clientId = justCreated; justCreated = null; tab="novo"; render(); window.scrollTo(0,0); break;
+    case "skiporder": justCreated = null; tab="clientes"; render(); break;
+    case "anotherclient": justCreated = null; cliDraft = null; render(); break;
+    case "neworderfor": draft = freshDraft(); draft.clientId = el.dataset.id; tab="novo"; render(); break;
+    case "repeat": {
+      const last = S.orders.filter(x=>x.clientId===el.dataset.id && x.status!=="cancelado").sort((a,b)=>b.num-a.num)[0];
+      draft = freshDraft(); draft.clientId = el.dataset.id;
+      if (last) Object.assign(draft,{modelId:last.modelId,color:last.color,size:last.size,cores:last.cores,qty:last.qty});
+      tab="novo"; render(); toast("Último pedido copiado. Ajuste a quantidade se precisar."); break; }
+    case "approveart": { o.status="sinal"; log(o, portal ? "Cliente aprovou a arte pelo sistema" : "Arte aprovada pelo cliente (confirmado pela fábrica)");
+      const c = client(o.clientId); c.ficha = {logo:o.logo,modelId:o.modelId,color:o.color,size:o.size,cores:o.cores,em:now()};
+      log(o,"Arte guardada na ficha do cliente para os próximos pedidos"); save(); render(); window.scrollTo(0,0); break; }
+    case "paysinal": case "payfull": { const dv = $("#payDate")?.value; const dt = dv ? new Date(dv+"T12:00:00").toISOString() : now();
+      const full = act==="payfull", v = Math.round((full ? o.total-recebido(o) : o.total/2)*100)/100;
+      o.pagamentos.push(newPay(full?"Pagamento total":"Sinal 50%", v, dt)); o.status="producao";
+      log(o, `${full?"Pagamento total":"Sinal"} recebido: ${brl(v)} (${fmtDate(dt)}). Pedido em produção`); save(); render(); break; }
+    case "prodok": { const ok = recebido(o) >= o.total - 0.01 && freteGratis(o); o.status = ok ? "envio" : "saldo";
+      log(o, ok ? "Produção concluída. Pedido pronto para envio" : "Produção concluída. Aguardando saldo e frete para enviar"); save(); render(); break; }
+    case "paysaldo": { const dv = $("#payDate")?.value; const dt = dv ? new Date(dv+"T12:00:00").toISOString() : now();
+      let fr = 0;
+      if (!freteGratis(o)){ const raw = $("#freteVal")?.value; fr = parseFloat(raw);
+        if (raw==="" || !isFinite(fr) || fr<0){ const e2=$("#saldoErr"); e2.hidden=false; e2.textContent="Informe o valor do frete (use 0 se o cliente vai retirar)."; break; } }
+      const v = Math.round((o.total-recebido(o))*100)/100;
+      if (v>0) o.pagamentos.push(newPay("Saldo 50%", v, dt));
+      o.frete = freteGratis(o) ? 0 : fr; if (o.frete>0) o.pagamentos.push(newPay("Frete", o.frete, dt));
+      o.status="envio";
+      log(o, `Recebido: saldo ${brl(v)} + frete ${freteGratis(o)?"grátis":brl(o.frete)} (${fmtDate(dt)}). Pronto para envio`); save(); render(); break; }
+    case "shipped": o.status="entregue"; log(o,"Pedido enviado"); save(); render(); break;
+    case "closemonth": { const ck="close-"+fMes; if (confirmKey===ck){ confirmKey=null; S.fechamentos[fMes]={fechadoEm:now(),pagoEm:null,por:me.id}; save(); toast(`${monthLabel(fMes)} fechado`); } else confirmKey=ck; render(); break; }
+    case "paymonth": { const ck="pay-"+fMes; if (confirmKey===ck){ confirmKey=null; S.fechamentos[fMes].pagoEm=now(); monthOrders(fMes,"todos").forEach(x=>{ x.comissaoPaga=true; log(x,`Comissão paga no fechamento de ${monthLabel(fMes)}`); }); save(); toast("Comissões registradas como pagas"); } else confirmKey=ck; render(); break; }
+    case "cancel": if (confirmKey==="cancel-"+o.id){ confirmKey=null; o.status="cancelado"; log(o,"Pedido cancelado pela fábrica"); save(); } else confirmKey="cancel-"+o.id; render(); break;
+    case "copy": { const t = $("#msgText").textContent;
+      const done = () => toast("Mensagem copiada");
+      try { navigator.clipboard.writeText(t).then(done, ()=>selectText()); } catch(_) { selectText(); } break; }
+    case "papprove": (async()=>{ el.disabled = true; const { error } = await sb.rpc("portal_approve", { p_token: portal }); if (error) toast(errMsg(error)); else toast("Arte aprovada. Obrigado!"); await loadPortal(portal); render(); window.scrollTo(0,0); })(); break;
+    case "toggleuser": { const u = user(el.dataset.id); u.ativo=!u.ativo; save(); render(); toast(u.ativo?"Acesso reativado":"Acesso bloqueado"); break; }
+  }
+});
+function selectText(){ const r=document.createRange(); r.selectNodeContents($("#msgText")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Texto selecionado: use Copiar do seu aparelho"); }
+
+document.addEventListener("input", e => {
+  if (e.target.closest("#orderForm")) updateSummary();
+  if (e.target.id==="freteVal" && drawer){ const o = order(drawer); const f = parseFloat(e.target.value)||0; $("#saldoTot").textContent = brl(Math.max(0,o.total-recebido(o)) + f); }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  if (t.closest("#orderForm")) updateSummary();
+  if (t.id==="fMes"){ fMes = t.value; confirmKey = null; render(); return; }
+  if (t.id==="fRep"){ fRep = t.value; render(); return; }
+  if (t.id==="rFrom"){ rFrom = t.value; render(); return; }
+  if (t.id==="rTo"){ rTo = t.value; render(); return; }
+  if (t.id==="pFrom"){ pFrom = t.value; render(); return; }
+  if (t.id==="pTo"){ pTo = t.value; render(); return; }
+  if (t.dataset.act==="assign"){ const c = client(t.dataset.id); c.repId = t.value || null; save(); toast(`Carteira de ${c.nome}: ${repName(c.repId)}. Vale para os próximos pedidos.`); }
+  if (t.id==="cliLogo"){ readLogo(t.files[0], async url=>{ toast("Enviando…"); const { error } = await sb.rpc("portal_set_logo", { p_token: portal, p_logo: url }); if (error) toast(errMsg(error)); else toast("Logo enviado"); await loadPortal(portal); render(); }); }
+});
+document.addEventListener("keydown", e => { if (e.key==="Escape" && drawer){ drawer=null; renderLayer(); } });
+document.addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id==="loginForm"){
+    (async()=>{
+      const err = $("#loginErr"), btn = f.querySelector("[type=submit]");
+      const login = f.lg.value.trim().toLowerCase();
+      btn.disabled = true; btn.textContent = "Entrando…"; err.hidden = true;
+      const { error } = await sb.auth.signInWithPassword({ email: emailOf(login), password: f.pw.value });
+      if (error) { err.hidden=false; err.textContent = "Usuário ou senha incorretos."; btn.disabled=false; btn.textContent="Entrar"; return; }
+      try { await afterAuth(); loginMsg = ""; } catch(e) { me = null; loginMsg = errMsg(e); }
+      render();
+    })();
+    return;
+  }
+  if (f.id==="setupForm"){
+    (async()=>{
+      const err = $("#setupErr"), btn = f.querySelector("[type=submit]"), show = t => { err.hidden=false; err.textContent=t; btn.disabled=false; btn.textContent="Criar acesso da fábrica"; };
+      const login = f.sLogin.value.trim().toLowerCase(), nome = f.sNome.value.trim();
+      if (!/^[a-z0-9._-]{3,30}$/.test(login)) return show("O usuário deve ter de 3 a 30 letras ou números, sem espaços e sem acento.");
+      if (f.sPw.value.length < 8) return show("A senha precisa ter pelo menos 8 caracteres.");
+      if (f.sPw.value !== f.sPw2.value) return show("As senhas não são iguais.");
+      btn.disabled = true; btn.textContent = "Criando…"; err.hidden = true;
+      const { data, error } = await sb.auth.signUp({ email: emailOf(login), password: f.sPw.value });
+      if (error) return show(errMsg(error));
+      if (!data.session) return show("No Supabase, desligue a confirmação de e-mail (Authentication → Sign In / Providers → Email → Confirm email) e tente de novo com outro usuário.");
+      const { error:e2 } = await sb.rpc("bootstrap_admin", { p_login: login, p_nome: nome || "Fábrica" });
+      if (e2) { await sb.auth.signOut(); return show(errMsg(e2)); }
+      boot = "ready"; await afterAuth(); render(); toast("Acesso da fábrica criado");
+    })();
+    return;
+  }
+  if (f.id==="pwForm"){
+    (async()=>{
+      const err = $("#pwErr"), show = t => { err.hidden=false; err.textContent=t; };
+      if (f.nPw.value.length < 8) return show("A senha precisa ter pelo menos 8 caracteres.");
+      if (f.nPw.value !== f.nPw2.value) return show("As senhas não são iguais.");
+      const { error } = await sb.auth.updateUser({ password: f.nPw.value });
+      if (error) return show(errMsg(error));
+      f.reset(); toast("Senha alterada"); tab = null; render();
+    })();
+    return;
+  }
+  if (f.id==="orderForm") return submitOrder();
+  if (f.id==="clientForm") return submitClient(f);
+  if (f.id==="userForm"){
+    (async()=>{
+      const err = $("#userErr"), btn = f.querySelector("[type=submit]"), show = t => { err.hidden=false; err.textContent=t; btn.disabled=false; btn.textContent="Criar acesso"; };
+      const login = f.login.value.trim().toLowerCase(), nome = f.nome.value.trim(), senha = f.senha.value;
+      if (!nome) return show("Informe o nome.");
+      if (!/^[a-z0-9._-]{3,30}$/.test(login)) return show("O usuário deve ter de 3 a 30 letras ou números, sem espaços e sem acento.");
+      if (senha.length < 8) return show("A senha inicial precisa ter pelo menos 8 caracteres.");
+      if (S.users.some(u=>u.login===login)) return show("Esse usuário já existe. Escolha outro.");
+      btn.disabled = true; btn.textContent = "Criando…"; err.hidden = true;
+      const tmp = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false, storageKey:"Beg-novo-acesso" } });
+      const { data, error } = await tmp.auth.signUp({ email: emailOf(login), password: senha });
+      if (error) return show(/registered|already/i.test(errMsg(error)) ? "Esse usuário já existe. Escolha outro." : errMsg(error));
+      if (!data.user) return show("Não foi possível criar o acesso.");
+      const row = { id:data.user.id, login, nome, role:f.role.value, regiao:f.regiao.value.trim(), ativo:true };
+      const { error:e2 } = await sb.from("profiles").insert(row);
+      if (e2) return show(errMsg(e2));
+      const u = rowToUser(row); S.users.push(u); snap.users[u.id] = JSON.stringify(u);
+      render(); toast(`Acesso criado: ${login}`);
+    })();
+    return;
+  }
+  if (f.id==="cfgForm"){
+    const st = S.settings, num = (n,d) => { const v = parseFloat(f[n]?.value); return isFinite(v) ? v : d; };
+    st.repPct = num("repPct",st.repPct); st.repVeComissao = f.repVeComissao?.value==="sim"; st.freteGratisMin = Math.max(0,num("freteGratisMin",st.freteGratisMin)); st.diaPag = Math.min(28,Math.max(1,Math.round(num("diaPag",st.diaPag)))); st.fabricaWhats = digits(f.fabricaWhats?.value||""); st.gestorPct = num("gestorPct",st.gestorPct); st.twoColorAdd = num("twoColorAdd",st.twoColorAdd);
+    st.models.forEach(m=>{ m.min = Math.max(1,Math.round(num("min-"+m.id,m.min))); ["P","M","G"].forEach(s=>m.prices[s]=num(`p-${m.id}-${s}`,m.prices[s])); });
+    st.tiers.forEach((t,i)=>{ const pct = Math.min(60,Math.max(0,num("tier-"+i,(1-t.f)*100))); t.f = Math.round((1-pct/100)*1000)/1000; });
+    save(); render(); toast("Tabela salva. Vale para os próximos pedidos."); return;
+  }
+});
+
+render();
+start();
+})();
+</script>
+
+</body>
+</html>
