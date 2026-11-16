@@ -268,7 +268,7 @@ function priceFor(st,modelId,size,qty,cores){
 /* ---------- conexão com o banco (preencha as duas linhas abaixo) ---------- */
 const SUPABASE_URL = "https://nlmtyvrjpzxpghvcphsn.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sbXR5dnJqcHp4cGdodmNwaHNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NTA4ODUsImV4cCI6MjExMDQyNjg4NX0.-BHmTXRb8jtEPxYHYkScr7SV76FsBMLGhcrE2ZyPvFY";
-const LOGIN_DOMAIN = "acesso.Begsacolas.com.br"; // só para montar o login; nenhum e-mail é enviado
+const LOGIN_DOMAIN = "begsacolas.com.br"; // só para montar o login; nenhum e-mail é enviado
 
 const configured = /^https:\/\/.+/.test(SUPABASE_URL) && SUPABASE_KEY.length > 40;
 const libOk = !!(window.supabase && window.supabase.createClient);
@@ -1328,7 +1328,7 @@ document.addEventListener("submit", e => {
       if (senha.length < 8) return show("A senha inicial precisa ter pelo menos 8 caracteres.");
       if (S.users.some(u=>u.login===login)) return show("Esse usuário já existe. Escolha outro.");
       btn.disabled = true; btn.textContent = "Criando…"; err.hidden = true;
-      const tmp = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false, storageKey:"Beg-novo-acesso" } });
+      const tmp = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false, storageKey:"beg-novo-acesso" } });
       const { data, error } = await tmp.auth.signUp({ email: emailOf(login), password: senha });
       if (error) return show(/registered|already/i.test(errMsg(error)) ? "Esse usuário já existe. Escolha outro." : errMsg(error));
       if (!data.user) return show("Não foi possível criar o acesso.");
