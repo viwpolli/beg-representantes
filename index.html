@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Beg Representantes</title>
+<title>Bég Representantes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -422,7 +422,7 @@ function render(){
   app.innerHTML = `
   <header class="top"><div class="wrap">
     <div class="brandrow">
-      <div class="brand">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+      <div class="brand">${brandMark()}<span>Bég · Canal de Representantes</span></div>
       <div class="who"><span class="role">${roleLabel}</span><span>${esc(me.nome)}</span><button class="linkbtn" data-act="tab" data-v="senha">Trocar senha</button><button class="linkbtn" data-act="logout">Sair</button></div>
     </div>
     <nav class="tabs" aria-label="Seções">${tabs.map(t=>`<button class="tab" data-act="tab" data-v="${t[0]}" ${t[0]===navTab?'aria-current="page"':""}>${t[1]}</button>`).join("")}</nav>
@@ -442,17 +442,17 @@ const TABS = {
 
 /* ---------- login ---------- */
 function viewBoot(){
-  const box = inner => `<div class="wrap login"><div class="loginbox"><div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>${inner}</div></div>`;
+  const box = inner => `<div class="wrap login"><div class="loginbox"><div class="brand" style="font-size:1.4rem">${brandMark()}<span>Bég · Canal de Representantes</span></div>${inner}</div></div>`;
   if (boot==="loading") return box(`<p class="muted">Carregando…</p>`);
   if (boot==="nolib") return box(`<p class="note bad">Não foi possível carregar o sistema. Confira a internet e recarregue a página.</p>`);
   return box(`<div class="panel stack"><h3>Falta ligar ao banco de dados</h3><p class="muted">Abra o arquivo index.html e preencha SUPABASE_URL e SUPABASE_KEY com os dados do seu projeto no Supabase (Project Settings → API).</p></div>`);
 }
 function viewLogin(){
   if (boot==="setup") return `<div class="wrap login"><div class="loginbox">
-    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Bég · Canal de Representantes</span></div>
     <p class="muted">Primeiro acesso: crie o login da fábrica. Ele é o administrador e cria os acessos do gestor e dos representantes.</p>
     <form class="panel stack" id="setupForm">
-      <label class="f" for="sNome">Nome da empresa<input id="sNome" value="Beg Sacolas" required></label>
+      <label class="f" for="sNome">Nome da empresa<input id="sNome" value="Bég Sacolas" required></label>
       <label class="f" for="sLogin">Usuário<input id="sLogin" value="fabrica" autocomplete="username" required></label>
       <label class="f" for="sPw">Senha (mínimo 8 caracteres)<input id="sPw" type="password" autocomplete="new-password" required></label>
       <label class="f" for="sPw2">Repita a senha<input id="sPw2" type="password" autocomplete="new-password" required></label>
@@ -461,7 +461,7 @@ function viewLogin(){
     </form>
   </div></div>`;
   return `<div class="wrap login"><div class="loginbox">
-    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Beg · Canal de Representantes</span></div>
+    <div class="brand" style="font-size:1.4rem">${brandMark()}<span>Bég · Canal de Representantes</span></div>
     <p class="muted">Entre com o usuário e a senha criados pela fábrica.</p>
     <form class="panel stack" id="loginForm">
       <label class="f" for="lg">Usuário<input id="lg" autocomplete="username" autocapitalize="none" required></label>
@@ -1089,7 +1089,7 @@ function renderLayer(){
   const fabWa = digits(S.settings.fabricaWhats||"");
   const fabFmt = fabWa ? `(${fabWa.slice(0,2)}) ${fabWa.slice(2,-4)}-${fabWa.slice(-4)}` : "";
   const sendToFab = me.role==="rep" && fabWa;
-  const msg = `Olá, ${c?.responsavel||c?.nome}! ${me.role==="rep"?`Aqui é ${me.nome}, representante da Beg Sacolas.`:"Aqui é da Beg Sacolas."} Seu pedido nº ${o.num} foi registrado: ${o.qty} un de ${m?.name}, TNT ${o.color.toLowerCase()}, arte ${o.size}, total ${brl(o.total)}.\n\nPara começar a arte, envie o logo da ${c?.nome} por este link, onde você também acompanha o pedido: ${portalUrl(o)}\n\nSe preferir, mande o logo ${sendToFab?`para o WhatsApp da fábrica: ${fabFmt}`:"respondendo esta mensagem"}. Antes de produzir, você recebe a simulação para aprovar.\n\nPagamento: 50% de sinal para iniciar a produção e 50% antes do envio. ${freteGratis(o)?"Frete grátis.":"O frete é informado e pago junto com o saldo."}`;
+  const msg = `Olá, ${c?.responsavel||c?.nome}! ${me.role==="rep"?`Aqui é ${me.nome}, representante da Bég Sacolas.`:"Aqui é da Bég Sacolas."} Seu pedido nº ${o.num} foi registrado: ${o.qty} un de ${m?.name}, TNT ${o.color.toLowerCase()}, arte ${o.size}, total ${brl(o.total)}.\n\nPara começar a arte, envie o logo da ${c?.nome} por este link, onde você também acompanha o pedido: ${portalUrl(o)}\n\nSe preferir, mande o logo ${sendToFab?`para o WhatsApp da fábrica: ${fabFmt}`:"respondendo esta mensagem"}. Antes de produzir, você recebe a simulação para aprovar.\n\nPagamento: 50% de sinal para iniciar a produção e 50% antes do envio. ${freteGratis(o)?"Frete grátis.":"O frete é informado e pago junto com o saldo."}`;
   const cliWa = digits(c?.whats||"");
   const waHref = `https://wa.me/${cliWa.length<=11?"55"+cliWa:cliWa}?text=${encodeURIComponent(msg)}`;
   const dateField = `<div class="fgrid"><label class="f" for="payDate">Data do pagamento<input id="payDate" type="date" value="${todayStr()}" max="${todayStr()}"></label><label class="f" for="payForma">Forma de pagamento<select id="payForma">${FORMAS.map(f=>`<option>${f}</option>`).join("")}</select></label></div>`;
@@ -1148,7 +1148,7 @@ function renderLayer(){
 /* ---------- portal (cliente) ---------- */
 const portalUrl = o => location.origin + location.pathname + "#p-" + o.token;
 function viewPortal(){
-  const head = `<div class="brand" style="font-size:1.2rem">${brandMark()}<span>Beg Sacolas</span></div>`;
+  const head = `<div class="brand" style="font-size:1.2rem">${brandMark()}<span>Bég Sacolas</span></div>`;
   if (!portalData) return `<main class="wrap"><div class="portal stack">${head}<p class="note bad">${esc(portalErr || "Carregando…")}</p></div></main>`;
   const p = portalData.pedido || {}, o = Object.assign({}, p, {status:portalData.status, total:Number(portalData.total), num:portalData.num});
   const m = model(o.modelId) || {name:"Sacola"}, rec = Number(portalData.recebido)||0;
